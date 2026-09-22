@@ -1,0 +1,285 @@
+{
+  "brand": {
+    "name": "EST",
+    "tagline": "Interactive 3D World & Creative Portfolio",
+    "tone": "creative, artistic, contemporary, playful, experimental, bold, youthful, premium",
+    "identity_concept": "An interactive 3D voxel mini-world reimagining portfolio browsing as an exploratory adventure inspired by bruno-simon.com, anchored in rich teal volumetric aesthetics."
+  },
+  "colors": {
+    "palette": {
+      "deep_teal": "#063F43",
+      "dark_teal": "#075B60",
+      "main_teal": "#0B8584",
+      "turquoise": "#20B9AE",
+      "light_accent": "#8CE4D5",
+      "off_white": "#F4F5ED",
+      "charcoal_overlay": "#041B1D"
+    },
+    "tokens": {
+      "background_3d_fog": "#063F43",
+      "background_overlay": "rgba(4, 27, 29, 0.88)",
+      "card_surface": "rgba(7, 91, 96, 0.55)",
+      "card_border": "rgba(140, 228, 213, 0.25)",
+      "text_primary": "#F4F5ED",
+      "text_secondary": "#8CE4D5",
+      "accent_glow": "#20B9AE",
+      "button_hover": "#20B9AE",
+      "button_text_hover": "#063F43"
+    },
+    "forbidden_colors": [
+      "#7351B7",
+      "#1B93A4"
+    ]
+  },
+  "typography": {
+    "font_family_heading": "'Montserrat', 'Cal Sans', 'Syne', sans-serif",
+    "font_family_body": "'Inter', 'DM Sans', sans-serif",
+    "google_fonts_import": "https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap",
+    "scale": {
+      "wordmark": "text-2xl font-black tracking-widest",
+      "menu_item": "text-4xl sm:text-6xl font-black tracking-tight uppercase",
+      "section_title": "text-3xl sm:text-5xl font-extrabold tracking-tight",
+      "card_title": "text-xl sm:text-2xl font-bold",
+      "body": "text-sm sm:text-base leading-relaxed",
+      "proximity_label": "text-xs sm:text-sm font-bold tracking-widest uppercase",
+      "hint": "text-xs sm:text-sm font-medium tracking-wider"
+    }
+  },
+  "navigation": {
+    "categories": [
+      { "id": "illustration", "name": "Illustration", "world_pos": [-12, 0, -8], "icon_3d": "Easel & Giant Canvas", "color_accent": "#8CE4D5" },
+      { "id": "murals", "name": "Murals", "world_pos": [0, 0, -14], "icon_3d": "Graffiti Brick Wall", "color_accent": "#20B9AE" },
+      { "id": "packaging", "name": "Packaging Solutions", "world_pos": [12, 0, -8], "icon_3d": "Oversized Craft Shipping Box Stack", "color_accent": "#F4F5ED" },
+      { "id": "printing", "name": "Printing", "world_pos": [-14, 0, 6], "icon_3d": "Vintage Mechanical Printing Press", "color_accent": "#8CE4D5" },
+      { "id": "fashion", "name": "Fashion", "world_pos": [14, 0, 6], "icon_3d": "Stylized Clothing Mannequin Display", "color_accent": "#20B9AE" },
+      { "id": "games", "name": "Games", "world_pos": [-6, 0, 14], "icon_3d": "Retro Arcade Cabinet with Glow", "color_accent": "#20B9AE" },
+      { "id": "contact", "name": "Contact", "world_pos": [6, 0, 14], "icon_3d": "Glowing Teleport Portal Ring", "color_accent": "#8CE4D5" }
+    ]
+  },
+  "world_3d_composition": {
+    "library": "@react-three/fiber + @react-three/drei + framer-motion",
+    "atmosphere": {
+      "fog_color": "#063F43",
+      "fog_near": 12,
+      "fog_far": 45,
+      "ambient_light": { "intensity": 0.6, "color": "#8CE4D5" },
+      "directional_light": { "position": [15, 25, 15], "intensity": 1.4, "color": "#F4F5ED", "castShadow": true },
+      "point_lights": [
+        { "position": [0, 4, 0], "color": "#20B9AE", "intensity": 2.0, "distance": 15 },
+        { "position": [-12, 3, -8], "color": "#8CE4D5", "intensity": 1.5, "distance": 10 },
+        { "position": [6, 3, 14], "color": "#20B9AE", "intensity": 2.5, "distance": 12 }
+      ],
+      "particles": { "count": 120, "color": "#8CE4D5", "size": 0.12, "area": [40, 15, 40] }
+    },
+    "ground": {
+      "size": [50, 50],
+      "color": "#075B60",
+      "grid_lines": true,
+      "grid_color": "#0B8584"
+    },
+    "character": {
+      "type": "Voxel-inspired humanoid hero character",
+      "mesh_parts": "Head, torso, legs, arms built with procedural Three.js BoxGeometry & low-poly materials",
+      "speed": 7.5,
+      "rotation_speed": 10,
+      "animations": {
+        "idle": "Subtle vertical float/bobbing sinusoidal motion [sin(time*3)*0.08]",
+        "walk": "Alternating leg and arm swing rotation [sin(time*12)*0.45] + body wobble"
+      },
+      "shadow": "Soft circle shadow mesh beneath character"
+    },
+    "camera": {
+      "fov": 45,
+      "offset": [0, 12, 16],
+      "easing_factor": 0.08,
+      "look_at_smoothing": 0.1
+    }
+  },
+  "ui_overlays_specs": {
+    "wordmark": {
+      "position": "fixed top-6 left-6 z-40",
+      "style": "text-2xl font-black text-[#F4F5ED] tracking-widest flex items-center gap-2 drop-shadow-md",
+      "data_testid": "est-wordmark"
+    },
+    "menu_button": {
+      "position": "fixed top-6 right-6 z-40",
+      "style": "bg-[#075B60]/80 hover:bg-[#20B9AE] hover:text-[#063F43] text-[#F4F5ED] px-4 py-2 rounded-full backdrop-blur-md border border-[#8CE4D5]/30 transition-all font-bold text-sm tracking-wider uppercase shadow-lg cursor-pointer",
+      "data_testid": "menu-toggle-button"
+    },
+    "full_screen_menu": {
+      "background": "bg-[#041B1D]/95 backdrop-blur-2xl",
+      "layout": "flex flex-col items-center justify-center gap-6 p-8 min-h-screen",
+      "items_style": "text-3xl sm:text-5xl font-black text-[#F4F5ED] hover:text-[#20B9AE] transition-all tracking-tight uppercase hover:scale-105 transform cursor-pointer",
+      "data_testid": "full-screen-menu"
+    },
+    "move_hint": {
+      "position": "fixed bottom-10 left-1/2 -translate-x-1/2 z-30 pointer-events-none",
+      "style": "bg-[#075B60]/70 backdrop-blur-md text-[#8CE4D5] border border-[#8CE4D5]/30 px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase animate-pulse shadow-xl",
+      "fade_out_delay_ms": 6000,
+      "data_testid": "move-explore-hint"
+    },
+    "proximity_label": {
+      "style": "bg-[#063F43]/90 text-[#8CE4D5] border border-[#20B9AE] px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase shadow-[0_0_15px_rgba(32,185,174,0.4)] backdrop-blur-md cursor-pointer animate-bounce",
+      "data_testid": "proximity-label"
+    },
+    "project_showcase_overlay": {
+      "container": "fixed inset-0 z-50 bg-[#041B1D]/90 backdrop-blur-xl overflow-y-auto p-4 sm:p-10 flex flex-col items-center",
+      "content_card": "max-w-4xl w-full bg-[#075B60]/60 border border-[#8CE4D5]/30 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-2xl text-[#F4F5ED]",
+      "back_button": "bg-[#20B9AE] text-[#063F43] font-bold px-6 py-2.5 rounded-full hover:bg-[#8CE4D5] transition-all text-sm uppercase tracking-wider mb-8 cursor-pointer shadow-lg",
+      "data_testid": "project-showcase-panel"
+    },
+    "mobile_controls": {
+      "joystick_container": "fixed bottom-8 left-8 z-40 md:hidden w-32 h-32 bg-[#075B60]/40 rounded-full border border-[#8CE4D5]/30 backdrop-blur-md flex items-center justify-center touch-none",
+      "joystick_knob": "w-14 h-14 bg-[#20B9AE]/80 rounded-full border-2 border-[#8CE4D5] shadow-lg",
+      "action_button": "fixed bottom-8 right-8 z-40 md:hidden w-16 h-16 bg-[#20B9AE] text-[#063F43] rounded-full font-black text-xs uppercase flex items-center justify-center shadow-2xl border-2 border-[#8CE4D5]",
+      "data_testid": "mobile-joystick"
+    }
+  },
+  "motion_specs": {
+    "camera_easing": "Lerp vector3 camera position (smooth step 0.08 per frame)",
+    "character_mesh": "Rotates towards movement vector smoothly with angle interpolation (0.15 step)",
+    "floating_3d_objects": "Continuous slow rotation [0.005 rad/frame] and vertical bobbing [sin(t*2)*0.15]",
+    "proximity_trigger_distance": 3.8,
+    "overlay_transitions": "Framer Motion spring physics (stiffness 300, damping 30)"
+  },
+  "portfolio_categories_data": {
+    "illustration": {
+      "title": "Illustration Showcase",
+      "description": "Bold, expressive digital graphics and stylized character artwork.",
+      "projects": [
+        {
+          "title": "Cybernetic Flora",
+          "year": "2026",
+          "category": "Digital Artwork",
+          "description": "Layered generative 3D organic illustration with iridescent surfaces and tactile paper-craft texture.",
+          "image": "https://images.unsplash.com/photo-1704426882813-8acfff020487?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY6NjZ8MHwxfHNlYXJjaHxfYXJ0aXN0aWMlMjBpbGx1c3RyYXRpb24lMjBkaWdpdGFsJTIwYXJ0d29ya3xlbnwwfHx8fDE3OTAwMzYyNDJ8MA&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "title": "Neomorphic Dreams",
+          "year": "2025",
+          "category": "Character Design",
+          "description": "Stylized character series crafted for next-gen interactive gaming web apps.",
+          "image": "https://images.pexels.com/photos/31120860/pexels-photo-31120860.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        }
+      ]
+    },
+    "murals": {
+      "title": "Murals & Architectural Walls",
+      "description": "Large-scale urban wall installations blending graffiti, geometry, and pop-art dynamism.",
+      "projects": [
+        {
+          "title": "Prismatic Spectrum Wall",
+          "year": "2026",
+          "category": "Urban Street Art",
+          "description": "A 40-meter exterior mural painted in downtown Lisbon featuring high-contrast geometric shapes.",
+          "image": "https://images.unsplash.com/photo-1601913463731-cfba9fd31ed3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwxfHxtdXJhbCUyMHN0cmVldCUyMGFydCUyMHdhbGwlMjBwYWludCUyMGJvbGQlMjBhcnR3b3JrfGVufDB8fHx8MTc5MDAzNjI0Mnww&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "title": "Flow State Facade",
+          "year": "2025",
+          "category": "Architectural Paint",
+          "description": "Fluid kinetic pattern mural designed for creative tech studio headquarters.",
+          "image": "https://images.pexels.com/photos/20387219/pexels-photo-20387219.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        }
+      ]
+    },
+    "packaging": {
+      "title": "Packaging Solutions",
+      "description": "Tactile, luxury, and eco-friendly physical box & container product design.",
+      "projects": [
+        {
+          "title": "Obsidian Reserve Box",
+          "year": "2026",
+          "category": "Luxury Packaging",
+          "description": "Matte dark container featuring hot-stamped teal foil accents and custom structural folds.",
+          "image": "https://images.unsplash.com/photo-1716540103530-cc33cdd20cde?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwzfHxjcmVhdGl2ZSUyMHByb2R1Y3QlMjBwYWNrYWdpbmclBkZXNpZ24lMjBib3glMjBjb250YWluZXJ8ZW58MHx8fHwxNzkwMDM2MjQyfDA&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "title": "Minimalist Craft Unboxing",
+          "year": "2025",
+          "category": "Eco Branding",
+          "description": "Sustainable raw cardboard packaging design with monochromatic typography.",
+          "image": "https://images.unsplash.com/photo-1595246007497-15e0ed4b8d96?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMHByb2R1Y3QlMjBwYWNrYWdpbmclBkZXNpZ24lMjBib3glMjBjb250YWluZXJ8ZW58MHx8fHwxNzkwMDM2MjQyfDA&ixlib=rb-4.1.0&q=85"
+        }
+      ]
+    },
+    "printing": {
+      "title": "Print & Editorial Craft",
+      "description": "High-grade tactile risograph prints, editorial zines, and letterpress typography.",
+      "projects": [
+        {
+          "title": "EST Editorial Vol. 1",
+          "year": "2026",
+          "category": "Zine & Typography",
+          "description": "Custom bound publication utilizing heavy cotton paper, metallic inks, and custom display sans type.",
+          "image": "https://images.pexels.com/photos/6620972/pexels-photo-6620972.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        },
+        {
+          "title": "Risograph Poster Series",
+          "year": "2025",
+          "category": "Poster Art",
+          "description": "Two-tone riso poster collection exploring neon teal and dark charcoal overlays.",
+          "image": "https://images.pexels.com/photos/6620970/pexels-photo-6620970.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        }
+      ]
+    },
+    "fashion": {
+      "title": "Fashion & Streetwear",
+      "description": "Contemporary apparel collection, capsule streetwear, and garment identity.",
+      "projects": [
+        {
+          "title": "Voxel Capsule Apparel",
+          "year": "2026",
+          "category": "Streetwear Line",
+          "description": "Oversized hoodies and technical garments featuring embroidered EST typography.",
+          "image": "https://images.unsplash.com/photo-1721637686340-de9f8cebda5a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwxHxN0cmVldHdlYXIlMjBmYXNoaW9uJTIwbW9kZWwlMjBlZGl0b3JpYWwlMjBwb3J0cmFpdCUyMGNsb3RoaW5nJTIwc2hvd2Nhc2V8ZW58MHx8fHwxNzkwMDM2MjQ4fDA&ixlib=rb-4.1.0&q=85"
+        },
+        {
+          "title": "Neon Studio Lookbook",
+          "year": "2025",
+          "category": "Editorial Fashion",
+          "description": "Contemporary urban apparel photography showcase shot under ambient night lighting.",
+          "image": "https://images.pexels.com/photos/12151002/pexels-photo-12151002.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        }
+      ]
+    },
+    "games": {
+      "title": "Interactive Games & Arcade",
+      "description": "Playful web experiences, low-poly 3D mini-games, and retro arcade systems.",
+      "projects": [
+        {
+          "title": "Synthwave Voxel Arcade",
+          "year": "2026",
+          "category": "3D Web Game",
+          "description": "Interactive browser game with retro synthwave lighting, particle effects, and high-score leaderboards.",
+          "image": "https://images.pexels.com/photos/25798272/pexels-photo-25798272.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        },
+        {
+          "title": "Pinball Vector World",
+          "year": "2025",
+          "category": "Physical-Digital Arcade",
+          "description": "Nostalgic arcade machine casing design with integrated LED reactive animations.",
+          "image": "https://images.pexels.com/photos/4841182/pexels-photo-4841182.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        }
+      ]
+    },
+    "contact": {
+      "title": "Get in Touch with EST",
+      "description": "Available for worldwide creative direction, 3D worlds, mural commissions, and brand collaborations.",
+      "email": "hello@est-studio.art",
+      "socials": [
+        { "platform": "Instagram", "handle": "@est.creative.world", "url": "https://instagram.com" },
+        { "platform": "Twitter / X", "handle": "@est_studio", "url": "https://twitter.com" },
+        { "platform": "Behance", "handle": "est-creative", "url": "https://behance.net" }
+      ],
+      "location": "Global / Remote & Studio Operations"
+    }
+  },
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Ensure data-testid attributes are included on all interactive elements (buttons, menu triggers, project cards, mobile joystick, back buttons).",
+    "DO NOT add transparent background without backdrop blur on headers or menu overlays.",
+    "Ensure smooth camera lerp (using R3F useFrame) following character's world position.",
+    "Mobile touch controls must render virtual joystick and interaction button seamlessly without blocking key 3D elements.",
+    "Proximity detection must calculate distance between character position vector and destination positions in useFrame loop."
+  ]
+}
