@@ -103,6 +103,11 @@ function ProjectCard({ p }) {
           src={p.image}
           alt={p.title}
           loading="lazy"
+          onError={(e) => {
+            if (p.fallback && e.currentTarget.src !== p.fallback) {
+              e.currentTarget.src = p.fallback;
+            }
+          }}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </div>
