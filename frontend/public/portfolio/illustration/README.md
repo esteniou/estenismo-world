@@ -1,10 +1,24 @@
-# Illustration — Coloque aqui suas imagens
+# Coloque aqui as imagens desta categoria
 
-Adicione EXATAMENTE estes 2 arquivos nesta pasta:
+Nomes exatos aceitos (até 10 projetos):
 
-- `project-1.jpg`  →  aparece no card "Cybernetic Flora"
-- `project-2.jpg`  →  aparece no card "Neomorphic Dreams"
+```
+project-1.webp   ou   project-1.jpg   ou   project-1.jpeg   ou   project-1.png
+project-2.webp   ...
+project-3.webp   ...
+project-4.webp   ...
+project-5.webp   ...
+project-6.webp   ...
+project-7.webp   ...
+project-8.webp   ...
+project-9.webp   ...
+project-10.webp  ...
+```
 
-Formatos aceitos: `.jpg`, `.jpeg`, `.png`, `.webp`
-Proporção recomendada: 4:3 (ex. 1600x1200)
-Tamanho ideal: ≤ 800 KB por imagem
+- O loader tenta as extensões nesta ordem: **webp → jpg → jpeg → png**
+- Slots sem imagem são simplesmente omitidos (nenhum placeholder aparece)
+- Depois de subir os arquivos, atualize a página no navegador
+- Para editar títulos / descrições / anos / URLs: edite
+  `/app/frontend/src/data/portfolio.js` (bloco `CATEGORY_OVERRIDES`)
+
+Tamanho recomendado: **1600 × 1200 px**, ≤ 800 KB, otimizado para web.

@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CONTENT } from "../../data/portfolio";
+import { CONTENT, IMAGE_EXTENSIONS } from "../../data/portfolio";
+import { resolveImage } from "../../lib/resolveImage";
 
 export default function ProjectPanel({ sectionId, onClose }) {
   return (
@@ -45,6 +47,32 @@ export default function ProjectPanel({ sectionId, onClose }) {
 
 function SectionBody({ sectionId }) {
   const c = CONTENT[sectionId];
+  const [resolved, setResolved] = useState(null); // Array of { ...project, image } or []
+  const [loading, setLoading] = useState(sectionId !== "contact");
+
+  useEffect(() => {
+    let cancelled = false;
+    if (!c || sectionId === "contact") {
+      setResolved([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    Promise.all(
+      (c.projects || []).map(async (p) => {
+        const image = await resolveImage(p.imageBase, IMAGE_EXTENSIONS);
+        return image ? { ...p, image } : null;
+      })
+    ).then((list) => {
+      if (cancelled) return;
+      setResolved(list.filter(Boolean));
+      setLoading(false);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [sectionId, c]);
+
   if (!c) return null;
 
   return (
@@ -68,15 +96,24 @@ function SectionBody({ sectionId }) {
             {c.subtitle}
           </p>
         </div>
-        <div className="est-mono-track text-xs text-[#F4F5ED]/70">{c.year}</div>
+        {c.year && (
+          <div className="est-mono-track text-xs text-[#F4F5ED]/70">{c.year}</div>
+        )}
       </div>
 
       {sectionId === "contact" ? (
         <ContactCard c={c} />
+      ) : loading ? (
+        <LoadingState />
+      ) : resolved.length === 0 ? (
+        <EmptyState />
       ) : (
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-          {c.projects.map((p, i) => (
-            <ProjectCard key={i} p={p} />
+        <div
+          className="grid md:grid-cols-2 gap-6 md:gap-8"
+          data-testid="projects-grid"
+        >
+          {resolved.map((p) => (
+            <ProjectCard key={p.slot} p={p} />
           ))}
         </div>
       )}
@@ -85,43 +122,101 @@ function SectionBody({ sectionId }) {
 }
 
 function ProjectCard({ p }) {
-  return (
-    <motion.article
-      whileHover={{ y: -6 }}
-      transition={{ type: "spring", stiffness: 260, damping: 22 }}
-      className="rounded-3xl overflow-hidden group"
-      style={{
-        background: "rgba(7, 91, 96, 0.55)",
-        border: "1px solid rgba(140, 228, 213, 0.28)",
-        boxShadow: "0 24px 60px rgba(4, 27, 29, 0.55)",
-        backdropFilter: "blur(12px)",
-      }}
-      data-testid="project-card"
-    >
+  const CardBody = (
+    <>
       <div className="aspect-[4/3] overflow-hidden">
         <img
           src={p.image}
           alt={p.title}
           loading="lazy"
-          onError={(e) => {
-            if (p.fallback && e.currentTarget.src !== p.fallback) {
-              e.currentTarget.src = p.fallback;
-            }
-          }}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </div>
       <div className="p-5 md:p-6">
         <div className="flex items-center justify-between est-mono-track text-[10px] text-[#8CE4D5] mb-3">
-          <span>{p.category}</span>
-          <span>{p.year}</span>
+          <span>#{String(p.slot).padStart(2, "0")}</span>
+          {p.year ? <span>{p.year}</span> : <span />}
         </div>
         <h3 className="est-heading text-2xl text-[#F4F5ED] mb-2">{p.title}</h3>
-        <p className="text-sm text-[#F4F5ED]/80 leading-relaxed">
-          {p.description}
-        </p>
+        {p.description && (
+          <p className="text-sm text-[#F4F5ED]/80 leading-relaxed">
+            {p.description}
+          </p>
+        )}
+        {p.url && (
+          <div className="mt-4 est-mono-track text-[11px] text-[#20B9AE]">
+            View project →
+          </div>
+        )}
       </div>
+    </>
+  );
+
+  const shared = {
+    className: "rounded-3xl overflow-hidden group block",
+    style: {
+      background: "rgba(7, 91, 96, 0.55)",
+      border: "1px solid rgba(140, 228, 213, 0.28)",
+      boxShadow: "0 24px 60px rgba(4, 27, 29, 0.55)",
+      backdropFilter: "blur(12px)",
+    },
+    "data-testid": "project-card",
+  };
+
+  if (p.url) {
+    return (
+      <motion.a
+        href={p.url}
+        target="_blank"
+        rel="noreferrer"
+        whileHover={{ y: -6 }}
+        transition={{ type: "spring", stiffness: 260, damping: 22 }}
+        {...shared}
+      >
+        {CardBody}
+      </motion.a>
+    );
+  }
+
+  return (
+    <motion.article
+      whileHover={{ y: -6 }}
+      transition={{ type: "spring", stiffness: 260, damping: 22 }}
+      {...shared}
+    >
+      {CardBody}
     </motion.article>
+  );
+}
+
+function LoadingState() {
+  return (
+    <div
+      className="est-mono-track text-[11px] text-[#8CE4D5]/70 py-16 text-center"
+      data-testid="projects-loading"
+    >
+      LOADING PROJECTS…
+    </div>
+  );
+}
+
+function EmptyState() {
+  return (
+    <div
+      className="rounded-3xl p-10 text-center"
+      style={{
+        background: "rgba(7, 91, 96, 0.35)",
+        border: "1px dashed rgba(140, 228, 213, 0.35)",
+      }}
+      data-testid="projects-empty"
+    >
+      <div className="est-mono-track text-[11px] text-[#8CE4D5] mb-3">
+        NO PROJECTS YET
+      </div>
+      <p className="text-[#F4F5ED]/80 text-sm max-w-md mx-auto">
+        Drop your images into the matching folder to see this section come alive.
+      </p>
+    </div>
   );
 }
 

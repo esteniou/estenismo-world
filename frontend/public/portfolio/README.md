@@ -1,36 +1,56 @@
-# EST — Portfolio Images
+# EST — Real Portfolio Images
 
-Cada categoria tem uma pasta própria. Basta soltar as imagens dentro da pasta
-correspondente com os nomes exatos indicados no README de cada uma.
+Cada categoria aceita até **10 projetos**. Basta soltar os arquivos com os
+nomes abaixo dentro da pasta correspondente. Se um slot não tiver imagem,
+o projeto simplesmente **não aparece** no site (sem placeholder).
 
 ```
 /app/frontend/public/portfolio/
-├── illustration/   →  project-1.jpg, project-2.jpg
-├── murals/         →  project-1.jpg, project-2.jpg
-├── packaging/      →  project-1.jpg, project-2.jpg
-├── printing/       →  project-1.jpg, project-2.jpg
-├── fashion/        →  project-1.jpg, project-2.jpg
-├── games/          →  project-1.jpg, project-2.jpg
-└── contact/        →  hero.jpg (opcional)
+├── illustration/   →  project-1.<ext>  …  project-10.<ext>
+├── murals/         →  project-1.<ext>  …  project-10.<ext>
+├── packaging/      →  project-1.<ext>  …  project-10.<ext>
+├── printing/       →  project-1.<ext>  …  project-10.<ext>
+├── fashion/        →  project-1.<ext>  →  project-10.<ext>
+└── games/          →  project-1.<ext>  …  project-10.<ext>
 ```
 
-## Como funciona
+`<ext>` pode ser um destes (o loader tenta nesta ordem):
+`.webp` → `.jpg` → `.jpeg` → `.png`
 
-- Os cards do site carregam automaticamente `project-1.jpg` e `project-2.jpg`
-  de cada categoria.
-- Se um arquivo ainda **não existir**, o site mostra uma imagem placeholder
-  bonita da Unsplash/Pexels no lugar (fallback automático).
-- Não precisa reiniciar nada — basta atualizar a página.
+## Recomendações
 
-## Formatos
+- Proporção: **4:3**  ·  Tamanho: **~1600 × 1200 px**
+- Formato preferido: **WebP** ou **JPG otimizado**
+- Peso: **≤ 800 KB** por imagem
 
-- `.jpg` / `.jpeg` (recomendado)
-- `.png`
-- `.webp`
+## Editando títulos, descrições, anos e URLs
 
-## Dicas
+Todos os metadados (título, descrição, ano, URL externa) ficam em:
 
-- Proporção 4:3 renderiza melhor (ex. 1600x1200 px)
-- Mantenha ≤ 800 KB por imagem para carregamento rápido
-- Se quiser usar `.png` em vez de `.jpg`, renomeie o arquivo mantendo o mesmo
-  prefixo (ex. `project-1.png`) e me avise que eu ajusto a extensão no código.
+`/app/frontend/src/data/portfolio.js`
+
+Basta editar o array `CATEGORY_OVERRIDES` naquele arquivo. Exemplo:
+
+```js
+const CATEGORY_OVERRIDES = {
+  illustration: [
+    {
+      slot: 1,
+      title: "Neo Noir",
+      description: "Uma série de ilustrações inspiradas em cinema.",
+      year: "2026",
+      url: "https://est-studio.art/neo-noir",
+    },
+    {
+      slot: 3,
+      title: "Botanical Voxels",
+      year: "2025",
+    },
+  ],
+  // ... outras categorias
+};
+```
+
+O `slot` corresponde ao número do arquivo (`project-1`, `project-2`…).
+Você só precisa listar os slots que quiser customizar — o resto usa
+`Project 01`, `Project 02`, etc. como fallback.
