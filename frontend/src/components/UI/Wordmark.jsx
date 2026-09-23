@@ -14,7 +14,7 @@ export default function Wordmark() {
         <span className="est-heading text-lg text-[#F4F5ED]">E</span>
       </div>
       <div className="est-heading text-xl md:text-2xl text-[#F4F5ED] tracking-[0.35em]">
-        EST<span className="text-[#20B9AE]">.</span>
+        ESTENISMO<span className="text-[#20B9AE]">.</span>
       </div>
     </div>
   );
