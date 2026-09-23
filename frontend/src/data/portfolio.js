@@ -107,7 +107,29 @@ export const CONTENT = {
   packaging: buildCategory("packaging"),
   printing: buildCategory("printing"),
   fashion: buildCategory("fashion"),
-  games: buildCategory("games"),
+  games: {
+    ...CATEGORY_META.games,
+    // Games are playable directly inside the portfolio popup via iframe.
+    // They do NOT use the image-loading system.
+    projects: [
+      {
+        slot: 1,
+        title: "No Traffic",
+        description: "A frantic top-down driving game — dodge cars and keep the streets calm.",
+        year: "2025",
+        iframeUrl: "https://notraffic.netlify.app/",
+        accent: "#20B9AE",
+      },
+      {
+        slot: 2,
+        title: "Estenismo",
+        description: "An experimental EST arcade world built as a browser-native mini-game.",
+        year: "2025",
+        iframeUrl: "https://estenismo.netlify.app/",
+        accent: "#8CE4D5",
+      },
+    ],
+  },
   contact: {
     title: "Contact",
     subtitle: "Let's make something wild together",

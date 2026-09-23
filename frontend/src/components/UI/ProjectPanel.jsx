@@ -48,11 +48,11 @@ export default function ProjectPanel({ sectionId, onClose }) {
 function SectionBody({ sectionId }) {
   const c = CONTENT[sectionId];
   const [resolved, setResolved] = useState(null); // Array of { ...project, image } or []
-  const [loading, setLoading] = useState(sectionId !== "contact");
+  const [loading, setLoading] = useState(sectionId !== "contact" && sectionId !== "games");
 
   useEffect(() => {
     let cancelled = false;
-    if (!c || sectionId === "contact") {
+    if (!c || sectionId === "contact" || sectionId === "games") {
       setResolved([]);
       setLoading(false);
       return;
@@ -103,6 +103,8 @@ function SectionBody({ sectionId }) {
 
       {sectionId === "contact" ? (
         <ContactCard c={c} />
+      ) : sectionId === "games" ? (
+        <GamesGrid projects={c.projects} />
       ) : loading ? (
         <LoadingState />
       ) : resolved.length === 0 ? (
@@ -118,6 +120,133 @@ function SectionBody({ sectionId }) {
         </div>
       )}
     </motion.div>
+  );
+}
+
+function GamesGrid({ projects }) {
+  const [activeGame, setActiveGame] = useState(null);
+
+  if (activeGame) {
+    return (
+      <div data-testid="game-iframe-view">
+        <button
+          onClick={() => setActiveGame(null)}
+          data-testid="back-to-games-btn"
+          className="est-mono-track text-[11px] font-bold px-4 py-2 rounded-full mb-5 inline-flex items-center gap-2 cursor-pointer transition-all"
+          style={{
+            background: "rgba(11, 133, 132, 0.55)",
+            color: "#8CE4D5",
+            border: "1px solid rgba(140,228,213,0.35)",
+          }}
+        >
+          ← ALL GAMES
+        </button>
+        <div className="mb-3 flex items-center justify-between">
+          <div>
+            <div className="est-heading text-2xl text-[#F4F5ED]">
+              {activeGame.title}
+            </div>
+            <div className="est-mono-track text-[10px] text-[#8CE4D5] mt-1">
+              {activeGame.year}
+            </div>
+          </div>
+          <a
+            href={activeGame.iframeUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="est-mono-track text-[10px] text-[#20B9AE] hover:text-[#8CE4D5]"
+          >
+            OPEN IN NEW TAB ↗
+          </a>
+        </div>
+        <div
+          className="rounded-3xl overflow-hidden"
+          style={{
+            border: "1px solid rgba(140, 228, 213, 0.35)",
+            boxShadow: "0 24px 60px rgba(4, 27, 29, 0.55)",
+            background: "#041B1D",
+          }}
+        >
+          <iframe
+            src={activeGame.iframeUrl}
+            title={activeGame.title}
+            allow="autoplay; fullscreen; gamepad; accelerometer; gyroscope"
+            allowFullScreen
+            loading="lazy"
+            data-testid={`game-iframe-${activeGame.slot}`}
+            className="w-full block"
+            style={{ height: "min(75vh, 720px)", border: 0 }}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="grid md:grid-cols-2 gap-6 md:gap-8"
+      data-testid="games-grid"
+    >
+      {projects.map((p) => (
+        <button
+          key={p.slot}
+          onClick={() => setActiveGame(p)}
+          data-testid={`game-card-${p.slot}`}
+          className="rounded-3xl overflow-hidden text-left group transition-transform hover:-translate-y-1"
+          style={{
+            background: "rgba(7, 91, 96, 0.55)",
+            border: `1px solid ${p.accent || "rgba(140,228,213,0.28)"}55`,
+            boxShadow: "0 24px 60px rgba(4, 27, 29, 0.55)",
+            backdropFilter: "blur(12px)",
+          }}
+        >
+          <div
+            className="aspect-[4/3] flex items-center justify-center relative overflow-hidden"
+            style={{
+              background:
+                "radial-gradient(circle at 30% 30%, rgba(32,185,174,0.35), transparent 60%), radial-gradient(circle at 75% 70%, rgba(140,228,213,0.25), transparent 55%), #063F43",
+            }}
+          >
+            <div
+              className="est-heading text-[#F4F5ED]"
+              style={{
+                fontSize: "clamp(2rem, 5vw, 3.25rem)",
+                lineHeight: 0.95,
+                textAlign: "center",
+                padding: "0 1.5rem",
+                textShadow: "0 4px 24px rgba(4,27,29,0.7)",
+              }}
+            >
+              {p.title}
+            </div>
+            <div
+              className="absolute bottom-4 right-4 est-mono-track text-[10px] px-3 py-1.5 rounded-full"
+              style={{
+                background: p.accent || "#20B9AE",
+                color: "#063F43",
+                fontWeight: 800,
+              }}
+            >
+              ▶ PLAY
+            </div>
+          </div>
+          <div className="p-5 md:p-6">
+            <div className="flex items-center justify-between est-mono-track text-[10px] text-[#8CE4D5] mb-3">
+              <span>#{String(p.slot).padStart(2, "0")}</span>
+              <span>{p.year}</span>
+            </div>
+            <h3 className="est-heading text-2xl text-[#F4F5ED] mb-2">
+              {p.title}
+            </h3>
+            {p.description && (
+              <p className="text-sm text-[#F4F5ED]/80 leading-relaxed">
+                {p.description}
+              </p>
+            )}
+          </div>
+        </button>
+      ))}
+    </div>
   );
 }
 
