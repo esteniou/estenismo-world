@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CONTENT, IMAGE_EXTENSIONS } from "../../data/portfolio";
-import { resolveImage } from "../../lib/resolveImage";
+import { CONTENT, IMAGE_EXTENSIONS, VIDEO_EXTENSIONS } from "../../data/portfolio";
+import { resolveMedia } from "../../lib/resolveImage";
 
 export default function ProjectPanel({ sectionId, onClose }) {
   return (
@@ -60,8 +60,8 @@ function SectionBody({ sectionId }) {
     setLoading(true);
     Promise.all(
       (c.projects || []).map(async (p) => {
-        const image = await resolveImage(p.imageBase, IMAGE_EXTENSIONS);
-        return image ? { ...p, image } : null;
+        const media = await resolveMedia(p.imageBase, IMAGE_EXTENSIONS, VIDEO_EXTENSIONS);
+        return media ? { ...p, media } : null;
       })
     ).then((list) => {
       if (cancelled) return;
@@ -253,13 +253,24 @@ function GamesGrid({ projects }) {
 function ProjectCard({ p }) {
   const CardBody = (
     <>
-      <div className="aspect-[4/3] overflow-hidden">
-        <img
-          src={p.image}
-          alt={p.title}
-          loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+      <div className="aspect-[4/3] overflow-hidden bg-[#041B1D]">
+        {p.media?.type === "video" ? (
+          <video
+            src={p.media.url}
+            controls
+            playsInline
+            preload="metadata"
+            data-testid={`project-video-${p.slot}`}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <img
+            src={p.media?.url || p.image}
+            alt={p.title}
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        )}
       </div>
       <div className="p-5 md:p-6">
         <div className="flex items-center justify-between est-mono-track text-[10px] text-[#8CE4D5] mb-3">

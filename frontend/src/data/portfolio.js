@@ -25,6 +25,9 @@ export const MAX_PROJECTS_PER_CATEGORY = 10;
 // Extensions to try (in order) when locating an image for a slot.
 export const IMAGE_EXTENSIONS = ["webp", "jpg", "jpeg", "png"];
 
+// Extensions to try (in order) when locating a video for a slot.
+export const VIDEO_EXTENSIONS = ["mp4", "webm"];
+
 // Build a default slot with neutral placeholder metadata.
 // You can override any field in CATEGORY_OVERRIDES below.
 const buildDefaultSlots = (categoryId) =>
