@@ -254,6 +254,13 @@ function ProjectCard({ p }) {
   const coverFromMedia = p.media?.type === "image" ? p.media.url : null;
   const gallery = p.gallery && p.gallery.length ? [coverFromMedia, ...p.gallery].filter(Boolean) : null;
   const [activeImage, setActiveImage] = useState(coverFromMedia);
+  const [lightbox, setLightbox] = useState(false);
+
+  const openLightbox = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setLightbox(true);
+  };
 
   const CardBody = (
     <>
@@ -267,6 +274,21 @@ function ProjectCard({ p }) {
             data-testid={`project-video-${p.slot}`}
             className="w-full h-full object-cover"
           />
+        ) : gallery ? (
+          <button
+            type="button"
+            onClick={openLightbox}
+            data-testid={`project-cover-${p.slot}`}
+            className="w-full h-full block cursor-zoom-in"
+            aria-label="Open image"
+          >
+            <img
+              src={activeImage || p.media?.url || p.image}
+              alt={p.title}
+              loading="lazy"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </button>
         ) : (
           <img
             src={activeImage || p.media?.url || p.image}
@@ -365,6 +387,39 @@ function ProjectCard({ p }) {
       {...shared}
     >
       {CardBody}
+      {lightbox && (
+        <div
+          role="dialog"
+          onClick={() => setLightbox(false)}
+          data-testid={`project-lightbox-${p.slot}`}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+          style={{ background: "rgba(4, 27, 29, 0.95)", backdropFilter: "blur(12px)" }}
+        >
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightbox(false);
+            }}
+            data-testid={`project-lightbox-close-${p.slot}`}
+            className="absolute top-5 right-5 est-mono-track text-xs font-bold px-4 py-2 rounded-full"
+            style={{
+              background: "#20B9AE",
+              color: "#063F43",
+              border: "1px solid #8CE4D5",
+            }}
+          >
+            CLOSE ✕
+          </button>
+          <img
+            src={activeImage}
+            alt={p.title}
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-full max-h-full object-contain select-none"
+            style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.6)" }}
+          />
+        </div>
+      )}
     </motion.article>
   );
 }
