@@ -52,7 +52,21 @@ const buildDefaultSlots = (categoryId) =>
 const CATEGORY_OVERRIDES = {
   illustration: [],
   murals: [],
-  packaging: [],
+  packaging: [
+    {
+      slot: 1,
+      title: "MAREA · Omega-3 Fish Oil",
+      description:
+        "Full packaging system for a 1 000 mg omega-3 supplement — brand identity, carton dieline, blister foil layout and final box mockups.",
+      year: "2026",
+      gallery: [
+        "/portfolio/packaging/marea-02.webp",
+        "/portfolio/packaging/marea-03.webp",
+        "/portfolio/packaging/marea-04.webp",
+        "/portfolio/packaging/marea-05.webp",
+      ],
+    },
+  ],
   printing: [],
   fashion: [],
   games: [],

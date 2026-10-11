@@ -251,6 +251,10 @@ function GamesGrid({ projects }) {
 }
 
 function ProjectCard({ p }) {
+  const coverFromMedia = p.media?.type === "image" ? p.media.url : null;
+  const gallery = p.gallery && p.gallery.length ? [coverFromMedia, ...p.gallery].filter(Boolean) : null;
+  const [activeImage, setActiveImage] = useState(coverFromMedia);
+
   const CardBody = (
     <>
       <div className="aspect-[4/3] overflow-hidden bg-[#041B1D]">
@@ -265,7 +269,7 @@ function ProjectCard({ p }) {
           />
         ) : (
           <img
-            src={p.media?.url || p.image}
+            src={activeImage || p.media?.url || p.image}
             alt={p.title}
             loading="lazy"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -282,6 +286,42 @@ function ProjectCard({ p }) {
           <p className="text-sm text-[#F4F5ED]/80 leading-relaxed">
             {p.description}
           </p>
+        )}
+        {gallery && gallery.length > 1 && (
+          <div
+            className="mt-4 flex gap-2 overflow-x-auto est-scroll pb-1"
+            data-testid={`project-gallery-${p.slot}`}
+          >
+            {gallery.map((src, i) => (
+              <button
+                key={src}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setActiveImage(src);
+                }}
+                data-testid={`project-gallery-${p.slot}-thumb-${i}`}
+                className="shrink-0 rounded-lg overflow-hidden transition-all"
+                style={{
+                  border:
+                    activeImage === src
+                      ? "2px solid #20B9AE"
+                      : "2px solid rgba(140,228,213,0.2)",
+                  width: 72,
+                  height: 72,
+                  background: "#041B1D",
+                }}
+              >
+                <img
+                  src={src}
+                  alt=""
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
         )}
         {p.url && (
           <div className="mt-4 est-mono-track text-[11px] text-[#20B9AE]">
