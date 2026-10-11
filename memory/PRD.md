@@ -45,3 +45,14 @@ Build a highly immersive, playful, premium interactive 3D portfolio for the crea
 ## Next Tasks
 - Optionally add react-three postprocessing (bloom on emissive materials)
 - Optionally add a mini-map / compass in corner
+
+
+## Current Content Status — Feb 2026
+- Brand wordmark is now ESTENISMO. Preserve the 3D world, controls and existing assets during content additions.
+- Portfolio content uses local static WebP/video files under `frontend/public/portfolio/<category>/` and metadata in `frontend/src/data/portfolio.js`; absent slots are hidden, not placeholder cards.
+- Murals: 8 uploaded images. Fashion: 2 native video projects. Games: No Traffic and Estenismo embedded via iframe.
+- Packaging: MAREA (slot 1), SOLEN (slot 2), and COTTONFIELDS · Baby Cleansing Wipes (slot 3). Each reuses the existing gallery and lightbox in ProjectPanel.jsx.
+- Latest completed request: add both Cottonfields images as project 3, confirmed by user. Mockup saved as `project-3.webp`; flat artwork as `cottonfields-02.webp`. Original WebP files preserved without recompression, resizing, rotation or cropping. No other project or UI code changed.
+- Verification: both Cottonfields files return HTTP 200 with image/webp through the current preview URL; downloaded bytes match the supplied originals. No automated test suite run, as requested. Gallery/lightbox visual interaction remains user-verification pending.
+- Remaining content: Illustration and Printing await user uploads; Contact awaits confirmed real email/social links (current details are placeholders).
+- Future work only on request: mobile/media interaction verification and deeper 3D polish. Ambient sound remains opted out; do not add integrations or refactor ProjectPanel for simple content changes.

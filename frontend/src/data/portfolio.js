@@ -77,6 +77,15 @@ const CATEGORY_OVERRIDES = {
         "/portfolio/packaging/solen-03.webp",
       ],
     },
+    {
+      slot: 3,
+      title: "COTTONFIELDS · Baby Cleansing Wipes",
+      description:
+        "Packaging design for baby cleansing wipes — flat artwork and product mockup.",
+      gallery: [
+        "/portfolio/packaging/cottonfields-02.webp",
+      ],
+    },
   ],
   printing: [],
   fashion: [],
