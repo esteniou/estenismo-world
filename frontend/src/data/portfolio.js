@@ -66,6 +66,17 @@ const CATEGORY_OVERRIDES = {
         "/portfolio/packaging/marea-05.webp",
       ],
     },
+    {
+      slot: 2,
+      title: "SOLEN · Vitamin D3",
+      description:
+        "Warm, minimal packaging for a daily sunshine supplement — carton dieline, bottle label and final hero mockup.",
+      year: "2026",
+      gallery: [
+        "/portfolio/packaging/solen-02.webp",
+        "/portfolio/packaging/solen-03.webp",
+      ],
+    },
   ],
   printing: [],
   fashion: [],
