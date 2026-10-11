@@ -86,6 +86,13 @@ const CATEGORY_OVERRIDES = {
         "/portfolio/packaging/cottonfields-02.webp",
       ],
     },
+    {
+      slot: 4,
+      title: "TUCANO · Takeaway Packaging",
+      description:
+        "Takeaway packaging for a Brazilian kitchen in Dublin — toucan identity, box mockup and flat layouts.",
+      gallery: [],
+    },
   ],
   printing: [],
   fashion: [],

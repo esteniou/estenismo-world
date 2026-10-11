@@ -252,7 +252,7 @@ function GamesGrid({ projects }) {
 
 function ProjectCard({ p }) {
   const coverFromMedia = p.media?.type === "image" ? p.media.url : null;
-  const gallery = p.gallery && p.gallery.length ? [coverFromMedia, ...p.gallery].filter(Boolean) : null;
+  const gallery = p.gallery ? [coverFromMedia, ...p.gallery].filter(Boolean) : null;
   const [activeImage, setActiveImage] = useState(coverFromMedia);
   const [lightbox, setLightbox] = useState(false);
 
