@@ -23,7 +23,7 @@ export const DESTINATIONS = [
 export const MAX_PROJECTS_PER_CATEGORY = 10;
 
 // Extensions to try (in order) when locating an image for a slot.
-export const IMAGE_EXTENSIONS = ["webp", "jpg", "jpeg", "png"];
+export const IMAGE_EXTENSIONS = ["webp", "jpg", "jpeg", "png", "gif"];
 
 // Extensions to try (in order) when locating a video for a slot.
 export const VIDEO_EXTENSIONS = ["mp4", "webm"];
