@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { CONTENT, IMAGE_EXTENSIONS, VIDEO_EXTENSIONS } from "../../data/portfolio";
 import { resolveMedia } from "../../lib/resolveImage";
@@ -265,38 +266,39 @@ function ProjectCard({ p }) {
   const CardBody = (
     <>
       <div className="aspect-[4/3] overflow-hidden bg-[#041B1D]">
-        {p.media?.type === "video" ? (
-          <video
-            src={p.media.url}
-            controls
-            playsInline
-            preload="metadata"
-            data-testid={`project-video-${p.slot}`}
-            className="w-full h-full object-cover"
-          />
-        ) : gallery ? (
-          <button
-            type="button"
-            onClick={openLightbox}
-            data-testid={`project-cover-${p.slot}`}
-            className="w-full h-full block cursor-zoom-in"
-            aria-label="Open image"
-          >
+        <button
+          type="button"
+          onClick={openLightbox}
+          data-testid={`project-cover-${p.slot}`}
+          className="relative w-full h-full block cursor-zoom-in"
+          aria-label={`Open ${p.title}`}
+        >
+          {p.media?.type === "video" ? (
+            <>
+              <video
+                src={p.media.url}
+                muted
+                playsInline
+                preload="metadata"
+                data-testid={`project-video-${p.slot}`}
+                className="w-full h-full object-cover pointer-events-none"
+              />
+              <span
+                data-testid={`project-video-open-hint-${p.slot}`}
+                className="absolute bottom-3 right-3 rounded-full bg-[#20B9AE] px-3 py-1.5 text-xs font-bold text-[#063F43]"
+              >
+                PLAY VIDEO
+              </span>
+            </>
+          ) : (
             <img
               src={activeImage || p.media?.url || p.image}
               alt={p.title}
               loading="lazy"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-          </button>
-        ) : (
-          <img
-            src={activeImage || p.media?.url || p.image}
-            alt={p.title}
-            loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        )}
+          )}
+        </button>
       </div>
       <div className="p-5 md:p-6">
         <div className="flex items-center justify-between est-mono-track text-[10px] text-[#8CE4D5] mb-3">
@@ -346,9 +348,15 @@ function ProjectCard({ p }) {
           </div>
         )}
         {p.url && (
-          <div className="mt-4 est-mono-track text-[11px] text-[#20B9AE]">
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noreferrer"
+            data-testid={`project-external-link-${p.slot}`}
+            className="block mt-4 est-mono-track text-[11px] text-[#20B9AE]"
+          >
             View project →
-          </div>
+          </a>
         )}
       </div>
     </>
@@ -362,23 +370,8 @@ function ProjectCard({ p }) {
       boxShadow: "0 24px 60px rgba(4, 27, 29, 0.55)",
       backdropFilter: "blur(12px)",
     },
-    "data-testid": "project-card",
+    "data-testid": `project-card-${p.slot}`,
   };
-
-  if (p.url) {
-    return (
-      <motion.a
-        href={p.url}
-        target="_blank"
-        rel="noreferrer"
-        whileHover={{ y: -6 }}
-        transition={{ type: "spring", stiffness: 260, damping: 22 }}
-        {...shared}
-      >
-        {CardBody}
-      </motion.a>
-    );
-  }
 
   return (
     <motion.article
@@ -387,9 +380,11 @@ function ProjectCard({ p }) {
       {...shared}
     >
       {CardBody}
-      {lightbox && (
+      {lightbox && createPortal(
         <div
           role="dialog"
+          aria-modal="true"
+          aria-label={p.title}
           onClick={() => setLightbox(false)}
           data-testid={`project-lightbox-${p.slot}`}
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
@@ -411,14 +406,28 @@ function ProjectCard({ p }) {
           >
             CLOSE ✕
           </button>
-          <img
-            src={activeImage}
-            alt={p.title}
-            onClick={(e) => e.stopPropagation()}
-            className="max-w-full max-h-full object-contain select-none"
-            style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.6)" }}
-          />
-        </div>
+          {p.media?.type === "video" ? (
+            <video
+              src={p.media.url}
+              controls
+              autoPlay
+              playsInline
+              onClick={(e) => e.stopPropagation()}
+              data-testid={`project-lightbox-video-${p.slot}`}
+              className="max-w-full max-h-full object-contain cursor-auto"
+            />
+          ) : (
+            <img
+              src={activeImage || p.media?.url || p.image}
+              alt={p.title}
+              onClick={(e) => e.stopPropagation()}
+              data-testid={`project-lightbox-image-${p.slot}`}
+              className="max-w-full max-h-full object-contain select-none"
+              style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.6)" }}
+            />
+          )}
+        </div>,
+        document.body
       )}
     </motion.article>
   );

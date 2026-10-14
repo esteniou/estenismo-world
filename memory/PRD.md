@@ -1,3 +1,10 @@
+## Latest Update — Open All Project Media
+- User approved applying Packaging Solutions' click-to-open behavior to images, animated GIFs and videos in every portfolio section, leaving Games unchanged. Explicitly requested no tests/minimum credits.
+- ProjectPanel.jsx now wraps every media cover in the same open-lightbox button, not just gallery images. Video cards show a clickable preview; the lightbox has the native video player with controls. Animated GIF originals remain animated.
+- Lightbox now uses a React DOM portal to document.body so card hover transforms/backdrop filters cannot contain or clip the full-screen viewer. Existing close button, background close and gallery thumbnails are retained. Optional external project URLs remain accessible through a separate View project link.
+- Each card now has a slot-specific data-testid. No project assets, 3D world or Games code changed. No tests run for this update; runtime verification and a fresh production build/Netlify publication are pending.
+
+
 ## Latest Update — Desktop Zoom
 - User requested mouse-wheel/trackpad zoom on desktop, clarified that the current desktop view is the CLOSEST limit and the farthest should match mobile. User explicitly requested no tests and minimum credits.
 - CameraRig.jsx now starts desktop at the original FOV=45 (closest) and permits wheel/trackpad zoom-out using the same portrait-aspect framing formula as mobile; desktop's portrait reference is `min(aspect, 1/aspect)`. Existing mobile initial framing and two-finger behavior are retained.
