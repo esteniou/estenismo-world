@@ -178,12 +178,8 @@ export const CONTENT = {
     title: "Contact",
     subtitle: "Let's make something wild together",
     year: "Always open",
-    email: "hello@est-studio.art",
+    email: "estenionline@gmail.com",
     location: "Global · Remote & Studio",
-    socials: [
-      { platform: "Instagram", handle: "@est.creative.world", url: "https://instagram.com" },
-      { platform: "Twitter", handle: "@est_studio", url: "https://twitter.com" },
-      { platform: "Behance", handle: "est-creative", url: "https://behance.net" },
-    ],
+    socials: [],
   },
 };
