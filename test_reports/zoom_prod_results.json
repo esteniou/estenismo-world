@@ -1,0 +1,313 @@
+{
+  "chromium_mobile_labels": {
+    "illustration": {
+      "found": true,
+      "text": "ILLUSTRATION",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 25.395042419433594,
+        "y": 321.9328308105469,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "murals": {
+      "found": true,
+      "text": "MURALS",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 145,
+        "y": 310.3726501464844,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "packaging": {
+      "found": true,
+      "text": "PACKAGING SOLUTIONS",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 264.6049499511719,
+        "y": 313.6828308105469,
+        "w": 100,
+        "h": 33
+      }
+    },
+    "printing": {
+      "found": true,
+      "text": "PRINTING",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": -93.9615478515625,
+        "y": 365.9482727050781,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "fashion": {
+      "found": true,
+      "text": "FASHION",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": 383.9615478515625,
+        "y": 365.9482727050781,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "games": {
+      "found": true,
+      "text": "GAMES",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": -56.42696762084961,
+        "y": 461.25372314453125,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "contact": {
+      "found": true,
+      "text": "CONTACT",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": 346.4269714355469,
+        "y": 461.25372314453125,
+        "w": 100,
+        "h": 16.5
+      }
+    }
+  },
+  "chromium_mobile_fov_initial": null,
+  "chromium_mobile_pos_initial": {
+    "x": 25.395042419433594,
+    "y": 321.9328308105469,
+    "w": 100,
+    "h": 16.5,
+    "cx": 75.3950424194336,
+    "cy": 330.1828308105469
+  },
+  "chromium_mobile_fov_after_spread": null,
+  "chromium_mobile_pos_after_spread": {
+    "x": -333.4198303222656,
+    "y": 46.48134231567383,
+    "w": 100,
+    "h": 16.5,
+    "cx": -283.4198303222656,
+    "cy": 54.73134231567383
+  },
+  "chromium_mobile_fov_clamped_in": null,
+  "chromium_mobile_pos_clamped_in": {
+    "x": -372.6748046875,
+    "y": 16.346477508544922,
+    "w": 100,
+    "h": 16.5,
+    "cx": -322.6748046875,
+    "cy": 24.596477508544922
+  },
+  "chromium_mobile_pos_after_pinch_out": {
+    "x": 25.395042419433594,
+    "y": 321.9328308105469,
+    "w": 100,
+    "h": 16.5,
+    "cx": 75.3950424194336,
+    "cy": 330.1828308105469
+  },
+  "chromium_mobile_single_finger_before": {
+    "x": 25.395042419433594,
+    "y": 321.9328308105469,
+    "w": 100,
+    "h": 16.5,
+    "cx": 75.3950424194336,
+    "cy": 330.1828308105469
+  },
+  "chromium_mobile_single_finger_after": {
+    "x": 25.395042419433594,
+    "y": 321.9328308105469,
+    "w": 100,
+    "h": 16.5,
+    "cx": 75.3950424194336,
+    "cy": 330.1828308105469
+  },
+  "webkit_mobile_labels": {
+    "illustration": {
+      "found": true,
+      "text": "ILLUSTRATION",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 25.395042419433594,
+        "y": 321.8494873046875,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "murals": {
+      "found": true,
+      "text": "MURALS",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 145,
+        "y": 310.289306640625,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "packaging": {
+      "found": true,
+      "text": "PACKAGING SOLUTIONS",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 264.6049499511719,
+        "y": 313.6828308105469,
+        "w": 100,
+        "h": 33
+      }
+    },
+    "printing": {
+      "found": true,
+      "text": "PRINTING",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": -93.9615478515625,
+        "y": 365.86492919921875,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "fashion": {
+      "found": true,
+      "text": "FASHION",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": 383.9615478515625,
+        "y": 365.86492919921875,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "games": {
+      "found": true,
+      "text": "GAMES",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": -56.42696762084961,
+        "y": 461.1703796386719,
+        "w": 100,
+        "h": 16.5
+      }
+    },
+    "contact": {
+      "found": true,
+      "text": "CONTACT",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": 346.4269714355469,
+        "y": 461.1703796386719,
+        "w": 100,
+        "h": 16.5
+      }
+    }
+  },
+  "chromium_desktop_fov": null,
+  "footer_text_present": true,
+  "chromium_desktop_labels": {
+    "illustration": {
+      "found": true,
+      "text": "ILLUSTRATION",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 437.5080871582031,
+        "y": 19.05324935913086,
+        "w": 63.609832763671875,
+        "h": 8.521890640258789
+      }
+    },
+    "murals": {
+      "found": true,
+      "text": "MURALS",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": 944.5054931640625,
+        "y": -27.834857940673828,
+        "w": 30.989013671875,
+        "h": 7.445341110229492
+      }
+    },
+    "packaging": {
+      "found": true,
+      "text": "PACKAGING SOLUTIONS",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 1398.7916259765625,
+        "y": 19.05324935913086,
+        "w": 103.790771484375,
+        "h": 8.521890640258789
+      }
+    },
+    "printing": {
+      "found": true,
+      "text": "PRINTING",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": -50.87811279296875,
+        "y": 197.74453735351562,
+        "w": 61.04609680175781,
+        "h": 12.291534423828125
+      }
+    },
+    "fashion": {
+      "found": true,
+      "text": "FASHION",
+      "display": "block",
+      "inViewport": false,
+      "rect": {
+        "x": 1912.2967529296875,
+        "y": 197.74453735351562,
+        "w": 56.11669921875,
+        "h": 12.291534423828125
+      }
+    },
+    "games": {
+      "found": true,
+      "text": "GAMES",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 88.74700927734375,
+        "y": 582.0870361328125,
+        "w": 89.77188110351562,
+        "h": 25.60009765625
+      }
+    },
+    "contact": {
+      "found": true,
+      "text": "CONTACT",
+      "display": "block",
+      "inViewport": true,
+      "rect": {
+        "x": 1725.5667724609375,
+        "y": 582.0870361328125,
+        "w": 121.6005859375,
+        "h": 25.60009765625
+      }
+    }
+  }
+}
