@@ -1,0 +1,42 @@
+{
+  "summary": "Pre-fix reproduction of missing ILLUSTRATION mobile label. Reproduced on live Netlify (https://estenism.netlify.app) in BOTH WebKit (iPhone 13 emulation) AND Chromium mobile (390x844). Does NOT reproduce on preview URL (https://est-teal-playground.preview.emergentagent.com). Root issue: the FIRST drei <Html> instance's inner React root never mounts in the Netlify production build; outer absolute-positioned wrapper div exists at the correct translate3d but has zero children. All other 6 destination labels mount normally. Not Safari-specific.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Destination.jsx <Html> (illustration, first instance)",
+        "issue": "On production bundle (main.559d06d8.js) served by Netlify, the first drei Html inner ReactDOM root is never mounted. Query `[data-testid=\"destination-label-illustration\"]` returns null. Outer wrapper <div style=\"position:absolute;transform:translate3d(75.4px,240.2px,0) scale(1);z-index:9\"></div> exists with 0 children, while sibling wrappers for murals/packaging/printing/fashion/games/consult each contain the expected inner centered wrapper + label element. Total wrappers on live=13 vs preview=14 (exact delta is illustration's inner centered wrapper).",
+        "selector": "[data-testid='destination-label-illustration']",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/tmp/webkit_repro.py",
+    "/tmp/webkit_out/results.json",
+    "/app/test_reports/webkit_mobile_live.jpg",
+    "/app/test_reports/webkit_mobile_preview.jpg",
+    "/app/test_reports/chromium_mobile_live.jpg",
+    "/app/test_reports/chromium_mobile_preview.jpg"
+  ],
+  "action_items": [
+    "Fix the first drei <Html> inner-root mount race in Destination.jsx. Hypothesis: the first <Html center distanceFactor={isMobile?undefined:11}> renders during initial Suspense/Canvas resize cycle where its layout effect cleanup unmounts the inner ReactDOM root before the mount-render microtask completes, leaving an orphan outer wrapper. The issue only manifests under React 19 production scheduling (preview served dev bundle `static/js/bundle.js` works fine).",
+    "Suggested mitigations to try (do NOT change deps): (a) stabilize the Html by giving it a persistent `key` prop (e.g. key=`label-${dest.id}`); (b) move the always-visible label Html into its OWN component wrapped in <Suspense fallback={null}> so it isn't torn down by the parent Suspense boundary; (c) pass a consistent `distanceFactor` number (e.g. 11 on both mobile+desktop) instead of switching between undefined/number which can toggle drei's internal observer path on first frame; (d) wrap the Html label in a Three primitive guard that only renders when `size.width > 0` (useThree size can be 0 during the very first measurement in production).",
+    "After implementing a fix, re-deploy to Netlify and re-run /tmp/webkit_repro.py to validate 14 wrappers and that `[data-testid=destination-label-illustration]` resolves on both WebKit and Chromium mobile."
+  ],
+  "critical_code_review_comments": [
+    "Destination.jsx line 34: `distanceFactor={isMobile ? undefined : 11}` – toggling between undefined and number across the first-render transition is a known drei Html footgun; it can swap internal pathways (CSS-only vs camera-projection) causing a remount within the same frame. Prefer a stable numeric value.",
+    "Destination.jsx uses `isMobile = useThree(({size}) => size.width < 768)`. On first mount `size` is briefly {0,0}, so isMobile flips true→false (or vice-versa) on the second frame. Because this flips Html props (distanceFactor + style width/whiteSpace/letterSpacing/fontSize), drei re-runs its layout effect. In production React 19 the inner createRoot().render() for the FIRST Html instance may be scheduled after its cleanup. All other instances escape because they mount after size has stabilized.",
+    "Each <Html> is unkeyed; consider explicit stable keys to help React reconcile across the size-flip re-render.",
+    "No ErrorBoundary / Suspense fallback around the Canvas destination labels – silent failure (no console error) means a mount race goes undiagnosed in prod."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "repro-only"},
+  "seed_data_creation": "",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "WebKit is installed at /pw-browsers/webkit-2370 and chromium headless at /pw-browsers/chromium_headless_shell-1248. Reusable script: /tmp/webkit_repro.py (runs WebKit iPhone 13 context + Chromium mobile UA against both live and preview, writes /tmp/webkit_out/results.json plus 4 JPG screenshots). Evidence table: live wrappers=13, preview wrappers=14; delta = illustration inner centered wrapper. No page errors on either URL; only harmless THREE.Clock / PCFSoftShadowMap deprecation warnings. Preview still serves a dev bundle (static/js/bundle.js, main.js) while live serves hashed production bundle main.559d06d8.js — so the bug is production-build-specific, not Safari-specific. The prior Chromium desktop crawl observation (empty first outer wrapper) is confirmed in both engines on mobile too.",
+  "rca of the issue": "Netlify production build of main.559d06d8.js renders 7 drei Html instances for destination labels; the FIRST one (illustration) creates its outer absolute wrapper (used by drei's useFrame to update transform each frame) but never mounts its inner ReactDOM.createRoot(wrapper).render(<Content/>) tree. Most likely cause: useThree size starts at 0 on first commit → isMobile derived prop flips on second commit → Html props (distanceFactor undefined↔11, style width/whiteSpace, etc.) change, triggering drei Html's layout-effect cleanup+remount within the first two frames. In React 19's production scheduler, the first Html's cleanup unmounts the inner root before its remount microtask runs, leaving an orphan outer div. Preview dev build survives because of StrictMode double-invoke / slower scheduling masks the race. Reproduction steps: 1) Playwright WebKit iPhone 13 context → goto https://estenism.netlify.app → wait networkidle+3.5s → querySelector('[data-testid=destination-label-illustration]') returns null; querySelectorAll('div[style*=\"translate3d\"]').length === 13; wrapper[0].children.length === 0. 2) Same script on preview URL → testid resolves, 14 wrappers, wrapper[0].children.length === 1. Mitigations listed in action_items."
+}

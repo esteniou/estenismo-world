@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
+import { Vector3 } from "three";
 
 // A themed 3D landmark for each portfolio destination.
 // The `active` boolean shows a floating proximity label.
@@ -31,26 +32,7 @@ export default function Destination({ dest, active, onOpen, characterRef }) {
       </mesh>
 
       {/* Category label always visible in world */}
-      <Html position={[0, 5.2, 0]} center distanceFactor={isMobile ? undefined : 11} zIndexRange={[9, 0]}>
-        <div
-          data-testid={`destination-label-${dest.id}`}
-          className="est-mono-track"
-          style={{
-            color: "#F4F5ED",
-            fontWeight: 900,
-            fontSize: isMobile ? "11px" : "14px",
-            letterSpacing: isMobile ? "0.1em" : "0.28em",
-            whiteSpace: isMobile ? "normal" : "nowrap",
-            width: isMobile ? 100 : undefined,
-            textAlign: "center",
-            textShadow: "0 2px 12px rgba(4,27,29,0.9)",
-            pointerEvents: "none",
-            userSelect: "none",
-          }}
-        >
-          {dest.name.toUpperCase()}
-        </div>
-      </Html>
+      <DestinationLabel dest={dest} isMobile={isMobile} />
 
       {/* Proximity CTA */}
       {active && (
@@ -82,6 +64,53 @@ export default function Destination({ dest, active, onOpen, characterRef }) {
       )}
     </group>
   );
+}
+
+function DestinationLabel({ dest, isMobile }) {
+  const { camera, gl, size } = useThree();
+  const anchor = useRef();
+  const label = useRef();
+  const point = useRef(new Vector3());
+  const cameraPosition = useRef(new Vector3());
+
+  // Static names do not need Html's separately scheduled React DOM roots.
+  useLayoutEffect(() => {
+    const element = document.createElement("div");
+    element.textContent = dest.name.toUpperCase();
+    element.className = "est-mono-track";
+    element.dataset.testid = `destination-label-${dest.id}`;
+    Object.assign(element.style, {
+      position: "absolute", top: "0", left: "0", zIndex: "9",
+      display: "none", pointerEvents: "none", userSelect: "none",
+      color: "#F4F5ED", fontWeight: "900", textAlign: "center",
+      fontSize: isMobile ? "11px" : "14px",
+      letterSpacing: isMobile ? "0.1em" : "0.28em",
+      whiteSpace: isMobile ? "normal" : "nowrap",
+      width: isMobile ? "100px" : "max-content",
+      textShadow: "0 2px 12px rgba(4,27,29,0.9)",
+    });
+    gl.domElement.parentNode.appendChild(element);
+    label.current = element;
+    return () => {
+      element.remove();
+      label.current = null;
+    };
+  }, [dest.id, dest.name, gl, isMobile]);
+
+  useFrame(() => {
+    if (!label.current || !anchor.current) return;
+    camera.updateMatrixWorld();
+    anchor.current.getWorldPosition(point.current);
+    camera.getWorldPosition(cameraPosition.current);
+    const distance = point.current.distanceTo(cameraPosition.current);
+    point.current.project(camera);
+    const { x, y, z } = point.current;
+    const scale = isMobile ? 1 : 11 / (2 * Math.tan(camera.fov * Math.PI / 360) * distance);
+    label.current.style.display = z < -1 || z > 1 ? "none" : "block";
+    label.current.style.transform = `translate3d(${(x + 1) * size.width / 2}px, ${(1 - y) * size.height / 2}px, 0) translate(-50%, -50%) scale(${scale})`;
+  });
+
+  return <group ref={anchor} position={[0, 5.2, 0]} />;
 }
 
 function Landmark({ id, accent }) {
