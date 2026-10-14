@@ -38,7 +38,7 @@ export default function World() {
       {/* Bottom-right tagline */}
       <div className="fixed bottom-5 right-5 md:bottom-8 md:right-8 z-30 pointer-events-none text-right">
         <div className="est-mono-track text-[10px] text-[#8CE4D5]/80">
-          A CREATIVE 3D WORLD
+          A CREATIVE WORLD
         </div>
         <div className="est-heading text-[#F4F5ED] text-sm md:text-base">
           by EST Studio
