@@ -1,3 +1,10 @@
+## Latest Update — Desktop Zoom
+- User requested mouse-wheel/trackpad zoom on desktop, clarified that the current desktop view is the CLOSEST limit and the farthest should match mobile. User explicitly requested no tests and minimum credits.
+- CameraRig.jsx now starts desktop at the original FOV=45 (closest) and permits wheel/trackpad zoom-out using the same portrait-aspect framing formula as mobile; desktop's portrait reference is `min(aspect, 1/aspect)`. Existing mobile initial framing and two-finger behavior are retained.
+- Wheel deltas normalized for pixels/lines/pages, exponential scaling clamped to the same near/far framing bounds. Listener attaches only to canvas, so portfolio popup scrolling is unchanged; cleanup removes listeners.
+- No tests run for this change. Runtime verification and an updated production build/deployment remain pending; Netlify has not been republished by this agent.
+
+
 # EST — Interactive 3D Portfolio (PRD)
 
 ## Original Problem

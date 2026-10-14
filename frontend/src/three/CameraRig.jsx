@@ -5,10 +5,14 @@ import * as THREE from "three";
 // Smooth third-person camera that follows the character.
 export default function CameraRig({ target }) {
   const { camera, gl, size } = useThree();
-  const zoom = useRef(0);
+  const zoom = useRef(null);
   useEffect(() => {
     const aspect = size.width / size.height;
-    const farFraming = size.width < 768 ? Math.max(1, 2 / aspect) : 1;
+    const isMobile = size.width < 768;
+    // Use the same portrait framing limit for mobile and desktop zoom-out.
+    const portraitAspect = isMobile ? aspect : Math.min(aspect, 1 / aspect);
+    const farFraming = Math.max(1, 2 / portraitAspect);
+    if (zoom.current === null) zoom.current = isMobile ? 0 : 1;
     let framing = farFraming - zoom.current * (farFraming - 1);
     const applyZoom = (nextFraming) => {
       framing = THREE.MathUtils.clamp(nextFraming, 1, farFraming);
@@ -47,11 +51,18 @@ export default function CameraRig({ target }) {
       applyZoom(pinch.framing * pinch.distance / span);
     };
     const end = () => { pinch = null; };
+    const wheel = (event) => {
+      if (event.cancelable) event.preventDefault();
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? size.height : 1;
+      applyZoom(framing * Math.exp(event.deltaY * unit * 0.0015));
+    };
+    canvas.addEventListener("wheel", wheel, { passive: false });
     canvas.addEventListener("touchstart", start, { passive: false });
     canvas.addEventListener("touchmove", move, { passive: false });
     canvas.addEventListener("touchend", end);
     canvas.addEventListener("touchcancel", end);
     return () => {
+      canvas.removeEventListener("wheel", wheel);
       canvas.removeEventListener("touchstart", start);
       canvas.removeEventListener("touchmove", move);
       canvas.removeEventListener("touchend", end);
