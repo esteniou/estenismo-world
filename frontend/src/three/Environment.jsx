@@ -9,7 +9,6 @@ export default function Environment() {
       <Floor />
       <Particles count={140} />
       <FloatingShapes />
-      <BigTypography />
     </>
   );
 }
@@ -114,100 +113,3 @@ function FloatingShape({ pos, size, color, geo, idx }) {
   );
 }
 
-function BigTypography() {
-  const letters = useMemo(
-    () => [
-      { char: "E", pos: [-4, 2, -24], color: "#20B9AE" },
-      { char: "S", pos: [0, 2, -25], color: "#8CE4D5" },
-      { char: "T", pos: [4, 2, -24], color: "#F4F5ED" },
-    ],
-    []
-  );
-  return (
-    <group>
-      {letters.map((l, i) => (
-        <LetterBlock key={i} {...l} />
-      ))}
-    </group>
-  );
-}
-
-function LetterBlock({ char, pos, color }) {
-  const ref = useRef();
-  useFrame((state) => {
-    if (!ref.current) return;
-    const t = state.clock.elapsedTime;
-    ref.current.rotation.y = Math.sin(t * 0.4) * 0.2;
-    ref.current.position.y = pos[1] + Math.sin(t * 0.8) * 0.15;
-  });
-  return (
-    <group ref={ref} position={pos}>
-      <mesh>
-        <boxGeometry args={[3.4, 4.2, 0.6]} />
-        <meshStandardMaterial color="#041B1D" roughness={0.7} />
-      </mesh>
-      <mesh position={[0, 0, 0.32]}>
-        <boxGeometry args={[3, 3.8, 0.04]} />
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.35} />
-      </mesh>
-      {char === "E" && <ECut color="#041B1D" />}
-      {char === "S" && <SCut color="#041B1D" />}
-      {char === "T" && <TCut color="#041B1D" />}
-    </group>
-  );
-}
-
-function ECut({ color }) {
-  return (
-    <group position={[0, 0, 0.36]}>
-      <mesh position={[0.6, 1, 0]}>
-        <boxGeometry args={[1.4, 0.5, 0.05]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-      <mesh position={[0.4, 0, 0]}>
-        <boxGeometry args={[1, 0.4, 0.05]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-      <mesh position={[0.6, -1, 0]}>
-        <boxGeometry args={[1.4, 0.5, 0.05]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-    </group>
-  );
-}
-function SCut({ color }) {
-  return (
-    <group position={[0, 0, 0.36]}>
-      <mesh position={[-0.4, 1, 0]}>
-        <boxGeometry args={[1.4, 0.5, 0.05]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-      <mesh position={[0.4, -1, 0]}>
-        <boxGeometry args={[1.4, 0.5, 0.05]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-    </group>
-  );
-}
-function TCut({ color }) {
-  return (
-    <group position={[0, 0, 0.36]}>
-      <mesh position={[-1, 1.1, 0]}>
-        <boxGeometry args={[0.6, 0.35, 0.05]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-      <mesh position={[1, 1.1, 0]}>
-        <boxGeometry args={[0.6, 0.35, 0.05]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-      <mesh position={[-1, 0, 0]}>
-        <boxGeometry args={[0.6, 1.6, 0.05]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-      <mesh position={[1, 0, 0]}>
-        <boxGeometry args={[0.6, 1.6, 0.05]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-    </group>
-  );
-}

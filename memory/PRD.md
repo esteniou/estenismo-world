@@ -30,7 +30,7 @@ Build a highly immersive, playful, premium interactive 3D portfolio for the crea
 - Project showcase panel (per-section) with 2 curated placeholder projects, images from Unsplash/Pexels
 - Contact section: email + Instagram / Twitter / Behance social links
 - "MOVE TO EXPLORE" hint that fades after 7s
-- Floating shapes, particle field, oversized EST letter sculptures for atmosphere
+- Floating shapes and particle field for atmosphere. The three decorative E/S/T panels behind Murals were removed in Feb 2026 at the user's confirmed request; main mural, proximity interaction, and portfolio content unchanged. No tests run, as explicitly requested.
 - Grain overlay for premium finish
 - data-testid on all interactive elements
 
