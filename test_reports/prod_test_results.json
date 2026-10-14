@@ -1,0 +1,226 @@
+{
+  "chromium_mobile": {
+    "labels_initial": {
+      "labels": {
+        "illustration": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(75.395px, 330.183px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "ILLUSTRATION"
+        },
+        "murals": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(195px, 318.623px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "MURALS"
+        },
+        "packaging": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(314.605px, 330.183px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "PACKAGING SOLUTIONS"
+        },
+        "printing": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(-43.9615px, 374.198px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "PRINTING"
+        },
+        "fashion": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(433.962px, 374.198px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "FASHION"
+        },
+        "games": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(-6.42697px, 469.504px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "GAMES"
+        },
+        "consult": {
+          "exists": false
+        },
+        "contact": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(396.427px, 469.504px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "CONTACT"
+        }
+      },
+      "labelCount": 7,
+      "translateDivCount": 7
+    },
+    "labels_after_reload": {
+      "labels": {
+        "illustration": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(75.395px, 330.183px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "ILLUSTRATION"
+        },
+        "murals": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(195px, 318.623px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "MURALS"
+        },
+        "packaging": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(314.605px, 330.183px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "PACKAGING SOLUTIONS"
+        },
+        "printing": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(-43.9615px, 374.198px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "PRINTING"
+        },
+        "fashion": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(433.962px, 374.198px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "FASHION"
+        },
+        "games": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(-6.42697px, 469.504px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "GAMES"
+        },
+        "consult": {
+          "exists": false
+        },
+        "contact": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(396.427px, 469.504px, 0px) translate(-50%, -50%) scale(1)",
+          "text": "CONTACT"
+        }
+      },
+      "labelCount": 7,
+      "translateDivCount": 7
+    },
+    "footer_text": "EESTENISM.MENUMOVE TO EXPLORE \u00b7 W A S D \u00b7 APPROACH TO OPENDRAG JOYSTICK \u00b7 PINCH TO ZOOMILLUSTRATIONMURALSPACKAGING SOLUTIONSPRINTINGFASHIONGAMESCONTACTA CREATIVE 3D WORLDby EST Studio",
+    "pinch": {
+      "fov_initial": null,
+      "pinch_result": {
+        "fovSpread": null,
+        "fovOut": null
+      }
+    },
+    "console_errors": [],
+    "bundle_hash": "https://assets.emergent.sh/scripts/emergent-main.js"
+  },
+  "chromium_desktop": {
+    "labels_initial": {
+      "labels": {
+        "illustration": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(297.573px, 31.4742px, 0px) translate(-50%, -50%) scale(0.405804)",
+          "text": "ILLUSTRATION"
+        },
+        "murals": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(960px, -32.5515px, 0px) translate(-50%, -50%) scale(0.35454)",
+          "text": "MURALS"
+        },
+        "packaging": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(1622.43px, 31.4742px, 0px) translate(-50%, -50%) scale(0.405804)",
+          "text": "PACKAGING SOLUTIONS"
+        },
+        "printing": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(-363.479px, 275.252px, 0px) translate(-50%, -50%) scale(0.585311)",
+          "text": "PRINTING"
+        },
+        "fashion": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(2283.48px, 275.252px, 0px) translate(-50%, -50%) scale(0.585311)",
+          "text": "FASHION"
+        },
+        "games": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(-155.596px, 803.098px, 0px) translate(-50%, -50%) scale(1.21905)",
+          "text": "GAMES"
+        },
+        "consult": {
+          "exists": false
+        },
+        "contact": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(2075.6px, 803.098px, 0px) translate(-50%, -50%) scale(1.21905)",
+          "text": "CONTACT"
+        }
+      },
+      "labelCount": 7,
+      "translateDivCount": 7
+    },
+    "labels_after_reload": {
+      "labels": {
+        "illustration": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(297.573px, 31.4742px, 0px) translate(-50%, -50%) scale(0.405804)",
+          "text": "ILLUSTRATION"
+        },
+        "murals": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(960px, -32.5515px, 0px) translate(-50%, -50%) scale(0.35454)",
+          "text": "MURALS"
+        },
+        "packaging": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(1622.43px, 31.4742px, 0px) translate(-50%, -50%) scale(0.405804)",
+          "text": "PACKAGING SOLUTIONS"
+        },
+        "printing": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(-363.479px, 275.252px, 0px) translate(-50%, -50%) scale(0.585311)",
+          "text": "PRINTING"
+        },
+        "fashion": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(2283.48px, 275.252px, 0px) translate(-50%, -50%) scale(0.585311)",
+          "text": "FASHION"
+        },
+        "games": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(-155.596px, 803.098px, 0px) translate(-50%, -50%) scale(1.21905)",
+          "text": "GAMES"
+        },
+        "consult": {
+          "exists": false
+        },
+        "contact": {
+          "exists": true,
+          "display": "block",
+          "transform": "translate3d(2075.6px, 803.098px, 0px) translate(-50%, -50%) scale(1.21905)",
+          "text": "CONTACT"
+        }
+      },
+      "labelCount": 7,
+      "translateDivCount": 7
+    },
+    "footer_text": "EESTENISM.MENUMOVE TO EXPLORE \u00b7 W A S D \u00b7 APPROACH TO OPENDRAG JOYSTICK \u00b7 PINCH TO ZOOMILLUSTRATIONMURALSPACKAGING SOLUTIONSPRINTINGFASHIONGAMESCONTACTA CREATIVE 3D WORLDby EST Studio",
+    "console_errors": [],
+    "bundle_hash": "https://assets.emergent.sh/scripts/emergent-main.js"
+  },
+  "webkit_mobile": {
+    "error": "Page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://est-teal-playground.preview.emergentagent.com/\", waiting until \"networkidle\"\n"
+  }
+}
