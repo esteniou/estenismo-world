@@ -1,0 +1,15 @@
+{
+  "scope": "Supplemental production-build checks after iteration_5",
+  "bundle": "main.28b6e8b0.js",
+  "environment": "Chromium, 390x780 iframe, unchanged production build served via preview-origin route fixtures",
+  "passed": [
+    "Pinch on Contact popup does not change underlying world zoom",
+    "Menu and popup open/close preserve selected zoom",
+    "Directed movement toward Murals mounts the first proximity CTA in production",
+    "Tapping proximity CTA opens the portfolio panel"
+  ],
+  "failed": [],
+  "evidence": "/root/.emergent/automation_output/20261014_212308/console_20261014_212308.log",
+  "related_agent_reports": ["iteration_4.json", "iteration_5.json"],
+  "live_netlify_updated": false
+}

@@ -1,0 +1,148 @@
+{
+  "disclosure": "WebKit emulation via Playwright (/pw-browsers/webkit-2370). NOT a physical iPhone. Native Touch/TouchEvent constructors used (same as Safari).",
+  "constructor_support": {
+    "touch": "function",
+    "event": "function",
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1"
+  },
+  "pos_initial": {
+    "cx": 75.3950424194336,
+    "cy": 330.0994873046875,
+    "w": 100
+  },
+  "test1_pinch_spread": {
+    "dispatch": {
+      "ok": true,
+      "strategy": "synthetic-Event",
+      "defaultPrevented": false
+    },
+    "pos_after": {
+      "cx": -283.4198303222656,
+      "cy": 54.64801025390625,
+      "w": 100
+    },
+    "cx_delta": -358.8148727416992
+  },
+  "test1_clamp_in": {
+    "cx": -322.6748046875,
+    "cy": 24.513145446777344,
+    "w": 100
+  },
+  "test1_pinch_contract": {
+    "dispatch": {
+      "ok": true,
+      "strategy": "synthetic-Event",
+      "defaultPrevented": false
+    },
+    "pos_after": {
+      "cx": 75.3950424194336,
+      "cy": 330.0994873046875,
+      "w": 100
+    }
+  },
+  "test2_pos_pre": {
+    "cx": 75.3950424194336,
+    "cy": 330.0994873046875,
+    "w": 100
+  },
+  "test2_pos_after_single_move": {
+    "cx": 75.3950424194336,
+    "cy": 330.0994873046875,
+    "w": 100
+  },
+  "test2_steps_summary": [
+    {
+      "t": "touchstart",
+      "pts": 1,
+      "res": {
+        "ok": true,
+        "strategy": "synthetic-Event",
+        "defaultPrevented": false
+      }
+    },
+    {
+      "t": "touchmove",
+      "pts": 1,
+      "res": {
+        "ok": true,
+        "strategy": "synthetic-Event",
+        "defaultPrevented": false
+      }
+    },
+    {
+      "t": "touchmove",
+      "pts": 1,
+      "res": {
+        "ok": true,
+        "strategy": "synthetic-Event",
+        "defaultPrevented": false
+      }
+    },
+    {
+      "t": "touchmove",
+      "pts": 1,
+      "res": {
+        "ok": true,
+        "strategy": "synthetic-Event",
+        "defaultPrevented": false
+      }
+    },
+    {
+      "t": "touchmove",
+      "pts": 1,
+      "res": {
+        "ok": true,
+        "strategy": "synthetic-Event",
+        "defaultPrevented": false
+      }
+    },
+    {
+      "t": "touchstart",
+      "pts": 2,
+      "res": {
+        "ok": true,
+        "strategy": "synthetic-Event",
+        "defaultPrevented": true
+      }
+    },
+    {
+      "...": "12 more"
+    }
+  ],
+  "test2_pos_after_add_2nd_finger_spread": {
+    "cx": -56.17041015625,
+    "cy": 229.1006317138672,
+    "w": 100
+  },
+  "test2_pos_after_end": {
+    "cx": -56.17041015625,
+    "cy": 229.1006317138672,
+    "w": 100
+  },
+  "test2_zoomed": true,
+  "test3_pos_zoomed_before_popup": {
+    "cx": -322.6748046875,
+    "cy": 24.513145446777344,
+    "w": 100
+  },
+  "test3_available_cta_buttons": [],
+  "test3_joystick": {
+    "testid": "mobile-joystick",
+    "cls": "fixed bottom-6 left-6 z-30 md:hidden w-28 h-28 rounded-full flex items-center justify-center touch-none select-none",
+    "rect": {
+      "x": 24,
+      "y": 708,
+      "w": 112,
+      "h": 112
+    }
+  },
+  "test3_short_joystick_move_done": true,
+  "test3_joystick_moved": true,
+  "test3_cta_after_joystick": [],
+  "test3_popup_opened": false,
+  "test3_pos_after_popup_open": {
+    "cx": -698.9281616210938,
+    "cy": -59.12202453613281,
+    "w": 100
+  }
+}

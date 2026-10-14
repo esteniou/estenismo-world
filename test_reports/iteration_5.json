@@ -1,0 +1,45 @@
+{
+  "summary": "Addressed iteration_4 gaps for WebKit pinch verification and the speculative sequential-finger issue. Ran WebKit (iPhone emulation, 390x844, iOS Safari UA) against the production yarn build via /__production_check__/*.txt fixtures. Dispatched touch events INSIDE the WebKit page (not CDP) to exercise the real listener path.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/test_reports/pw_webkit_pinch_test.py",
+    "/app/test_reports/webkit_pinch_results.json"
+  ],
+  "disclosure": "Testing performed on Playwright WebKit (/pw-browsers/webkit-2370) on Linux emulating iPhone (390x844, device-scale 3, iOS Safari UA). This is NOT a physical iPhone. However, events were dispatched by in-page JS targeting the production bundle's canvas listener — a stricter integration than iteration_4's Chromium-only CDP path.",
+  "constructor_support_observation": {
+    "typeof_Touch": "function",
+    "typeof_TouchEvent": "function",
+    "new_Touch_works": false,
+    "new_Touch_error": "TypeError: Illegal constructor",
+    "note": "On Playwright WebKit Linux, Touch and TouchEvent globals exist (typeof=function) but `new Touch(...)` throws 'Illegal constructor'. iOS Safari >=13.4 supports the constructor; this emulator does not expose the writable constructor path. Test fell back to a synthetic Event with forged touches/targetTouches/changedTouches lists — which is exactly what CameraRig's handler reads (event.touches.length, event.targetTouches[].clientX/Y, event.cancelable). The handler ran and defaultPrevented=true was observed on the 2-touch touchstart (confirming event.preventDefault() code path on cancelable events)."
+  },
+  "verified_items": [
+    "VERIFIED (WebKit, production bundle, actual canvas listener): pinch SPREAD zooms in. illustration label cx moved 75.40 -> -283.42 (delta -358.8) after one spread, then clamped at -322.67 after additional spreads — matches CameraRig's FOV=45 clamp and matches iteration_4 Chromium bounds. Projection change is the handler's output (camera.updateProjectionMatrix via applyZoom).",
+    "VERIFIED (WebKit): pinch CONTRACT zooms out and returns exactly to initial cx=75.3950424194336 (byte-identical) after a single sweep from span 350 -> 70. zoom.current ref is correctly re-clamped between gestures.",
+    "VERIFIED (WebKit): sequential 2nd-finger issue speculated in iteration_4 is NOT a bug. After a 1-finger touchstart followed by 4 single-finger touchmoves (no release), dispatching a touchstart with touches.length=2 initializes pinch and the subsequent 2-finger spread zooms (cx 75.40 -> -44.21 then -56.17 after end). The handler's `start` runs on EVERY touchstart and correctly initializes `pinch` when touches===targetTouches===2. The 2-touch touchstart also returned defaultPrevented=true, confirming event.preventDefault() path ran. The iteration_4 critical_code_review_comment about this is incorrect and should be removed.",
+    "VERIFIED (WebKit): single-finger touchmoves between the 1-finger start and the 2-finger add did NOT change the projection (cx stayed at 75.40), confirming the move handler returns early when touches.length !== 2 — no stray zoom from mid-sequence single-finger input.",
+    "VERIFIED (partial, WebKit): the mobile joystick (data-testid=mobile-joystick) accepts touch dispatch and moves the character. After a short joystick move + a sustained ~8s joystick push, the illustration label projection cx shifted from -322.67 (clamped-zoom state) to -698.93, consistent with camera following a translated character AND zoom state being preserved (framing clamp retained). zoom.current ref persists across joystick activity.",
+    "VERIFIED (WebKit): initial pinch-in restored the exact pre-zoom cx (75.3950424194336), confirming zoom.current + framing math round-trip is lossless at the clamp."
+  ],
+  "unverified_items": [
+    "Full popup open/close round-trip in WebKit: proximity CTA did not activate in headless even after a sustained 8s joystick push. destinations are 8-16 world units from spawn; headless raf cadence + character speed in this emulated session did not translate the character into proximity of a landmark within budget. No open-<dest>-btn was present in the DOM when checked. Therefore: `popup pinch does not zoom background` and `zoom preserved across popup open/close` were NOT directly observed in this run. Short joystick move DID work and did NOT visually disrupt zoom state (framing clamp still in effect based on label projection math). Recommend main agent (or a longer-budget session) to self-verify popup zoom isolation if required — code review of CameraRig shows touchstart only initializes pinch when touches.length===2, so if a popup modal consumes/preventDefault's its own touches (or if its DOM is overlaid above the canvas) the canvas listener should not fire anyway.",
+    "Native `new Touch()` / `new TouchEvent()` constructor-based dispatch could not be exercised on this WebKit build (Illegal constructor). On a real iPhone Safari the constructor path is available and would hit identical handler branches; the handler code reads only standard touch event properties, so behavior should match. Flagged as emulation limitation, not an application bug."
+  ],
+  "critical_code_review_comments": [
+    "iteration_4's claim 'adding a 2nd finger mid-drag does not re-arm pinch until release' is INCORRECT. The `start` listener is attached to 'touchstart' which fires every time a new finger touches the surface. When the 2nd finger lands, touches.length becomes 2 and pinch is initialized correctly. Verified empirically.",
+    "CameraRig.jsx `applyZoom` recomputes zoom.current only when farFraming > 1 (mobile). The useEffect dependency on size.width/size.height correctly re-runs on viewport change but mid-pinch state is lost on orientation flip. Acceptable UX.",
+    "The CDP-based Chromium pinch test in iteration_4 pw_prod_zoom_test.py and the in-page synthetic TouchEvent test here agree on identical label projection values (75.3950424194336 -> -322.67 clamp, exact lossless round-trip). Two independent dispatch mechanisms producing bit-identical outputs is strong evidence the handler is deterministic and correct."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "2/3 requested scenarios fully verified; popup round-trip partially verified (joystick + zoom preservation observed, CTA activation blocked by headless proximity timing)"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Reusable harness: /app/test_reports/pw_webkit_pinch_test.py dispatches synthetic TouchEvent in-page because Playwright WebKit (/pw-browsers/webkit-2370) blocks `new Touch()`. The handler at CameraRig.jsx reads only standard touch props, so synthetic dispatch is a faithful proxy. To verify popup zoom isolation: either (a) run on a physical iPhone (preferred — unemulated), or (b) extend the harness to pre-position character via a programmatic store/characterRef hack, or (c) simulate a very long joystick hold with explicit position polling (destinations at [+/-14..16, 0, +/-6..16] world units; character speed is encoded in Character.jsx useFrame). Production fixtures /__production_check__/*.txt still live; main agent should remove them after merge.",
+  "rca of the issue": "No new issue. Pre-existing iteration_4 critical_code_review_comments item about 'sequential 2nd finger does not re-arm pinch' is a false-positive; disproved by direct WebKit test. CameraRig pinch handler is correct for both simultaneous-two-finger and finger-added-mid-drag cases."
+}
