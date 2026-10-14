@@ -30,7 +30,7 @@ export default function MoveHint() {
             }}
           >
             <span className="hidden md:inline">MOVE TO EXPLORE · W A S D · APPROACH TO OPEN</span>
-            <span className="md:hidden">DRAG JOYSTICK TO EXPLORE</span>
+            <span className="md:hidden" data-testid="mobile-navigation-hint">DRAG JOYSTICK · PINCH TO ZOOM</span>
           </div>
         </motion.div>
       )}
