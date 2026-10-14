@@ -1,0 +1,14 @@
+# Query: smoking
+# ContextLines: 1
+
+3 results - 2 files
+
+frontend/src/data/portfolio.js:
+  168          slot: 2,
+  169:         title: "Stop Smoking",
+  170          description: "An experimental EST arcade world built as a browser-native mini-game.",
+
+memory/PRD.md:
+  52  - Portfolio content uses local static WebP/video files under `frontend/public/portfolio/<category>/` and metadata in `frontend/src/data/portfolio.js`; absent slots are hidden, not placeholder cards.
+  53: - Murals: 8 uploaded images. Fashion: 2 native video projects. Games: No Traffic and Stop Smoking embedded via iframe. Latest confirmed request: renamed only the Games title from Estenism to Stop Smoking, preserving its existing URL and the site wordmark. No tests run, as requested.
+  54  - Packaging: MAREA (slot 1), SOLEN (slot 2), COTTONFIELDS · Baby Cleansing Wipes (slot 3), and TUCANO · Takeaway Packaging (slot 4). Each reuses the existing lightbox in ProjectPanel.jsx; multi-image projects also have gallery thumbnails.

@@ -166,7 +166,7 @@ export const CONTENT = {
       },
       {
         slot: 2,
-        title: "STOP SMOKING",
+        title: "Stop Smoking",
         description: "An experimental EST arcade world built as a browser-native mini-game.",
         year: "2025",
         iframeUrl: "https://estenismo.netlify.app/",
