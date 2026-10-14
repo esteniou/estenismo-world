@@ -1,11 +1,12 @@
 import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 
 // A themed 3D landmark for each portfolio destination.
 // The `active` boolean shows a floating proximity label.
 export default function Destination({ dest, active, onOpen, characterRef }) {
   const groupRef = useRef();
+  const isMobile = useThree(({ size }) => size.width < 768);
 
   useFrame((state) => {
     if (!groupRef.current) return;
@@ -30,15 +31,18 @@ export default function Destination({ dest, active, onOpen, characterRef }) {
       </mesh>
 
       {/* Category label always visible in world */}
-      <Html position={[0, 5.2, 0]} center distanceFactor={11} zIndexRange={[9, 0]}>
+      <Html position={[0, 5.2, 0]} center distanceFactor={isMobile ? undefined : 11} zIndexRange={[9, 0]}>
         <div
+          data-testid={`destination-label-${dest.id}`}
           className="est-mono-track"
           style={{
             color: "#F4F5ED",
             fontWeight: 900,
-            fontSize: "14px",
-            letterSpacing: "0.28em",
-            whiteSpace: "nowrap",
+            fontSize: isMobile ? "11px" : "14px",
+            letterSpacing: isMobile ? "0.1em" : "0.28em",
+            whiteSpace: isMobile ? "normal" : "nowrap",
+            width: isMobile ? 100 : undefined,
+            textAlign: "center",
             textShadow: "0 2px 12px rgba(4,27,29,0.9)",
             pointerEvents: "none",
             userSelect: "none",
