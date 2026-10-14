@@ -470,7 +470,7 @@ function ContactCard({ c }) {
         <a
           href={`mailto:${c.email}`}
           data-testid="contact-email-link"
-          className="est-heading text-2xl md:text-3xl text-[#F4F5ED] hover:text-[#20B9AE] transition-colors break-all"
+          className="est-heading text-sm sm:text-base lg:text-xl text-[#F4F5ED] hover:text-[#20B9AE] transition-colors whitespace-nowrap"
         >
           {c.email}
         </a>
