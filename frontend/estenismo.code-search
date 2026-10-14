@@ -1,0 +1,24 @@
+# Query: estenismo
+# ContextLines: 1
+
+5 results - 3 files
+
+frontend/src/components/UI/Wordmark.jsx:
+  16        <div className="est-heading text-xl md:text-2xl text-[#F4F5ED] tracking-[0.35em]">
+  17:         ESTENISM<span className="text-[#20B9AE]">.</span>
+  18        </div>
+
+frontend/src/data/portfolio.js:
+  168          slot: 2,
+  169:         title: "Estenism",
+  170          description: "An experimental EST arcade world built as a browser-native mini-game.",
+  171          year: "2025",
+  172:         iframeUrl: "https://estenismo.netlify.app/",
+  173          accent: "#8CE4D5",
+
+memory/PRD.md:
+  50  ## Current Content Status — Feb 2026
+  51: - Brand wordmark is now ESTENISM. Preserve the 3D world, controls and existing assets during content additions.
+  52  - Portfolio content uses local static WebP/video files under `frontend/public/portfolio/<category>/` and metadata in `frontend/src/data/portfolio.js`; absent slots are hidden, not placeholder cards.
+  53: - Murals: 8 uploaded images. Fashion: 2 native video projects. Games: No Traffic and Estenism embedded via iframe.
+  54  - Packaging: MAREA (slot 1), SOLEN (slot 2), COTTONFIELDS · Baby Cleansing Wipes (slot 3), and TUCANO · Takeaway Packaging (slot 4). Each reuses the existing lightbox in ProjectPanel.jsx; multi-image projects also have gallery thumbnails.

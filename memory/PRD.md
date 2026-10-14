@@ -48,7 +48,7 @@ Build a highly immersive, playful, premium interactive 3D portfolio for the crea
 
 
 ## Current Content Status — Feb 2026
-- Brand wordmark is now ESTENISMO. Preserve the 3D world, controls and existing assets during content additions.
+- Brand wordmark is now ESTENISM. Latest request: replaced ESTENISMO/Estenismo in the wordmark and game title with ESTENISM/Estenism; preserved the game's existing URL with user approval. No tests run, as explicitly requested. Preserve the 3D world, controls and existing assets during content additions.
 - Portfolio content uses local static WebP/video files under `frontend/public/portfolio/<category>/` and metadata in `frontend/src/data/portfolio.js`; absent slots are hidden, not placeholder cards.
 - Murals: 8 uploaded images. Fashion: 2 native video projects. Games: No Traffic and Estenismo embedded via iframe.
 - Packaging: MAREA (slot 1), SOLEN (slot 2), COTTONFIELDS · Baby Cleansing Wipes (slot 3), and TUCANO · Takeaway Packaging (slot 4). Each reuses the existing lightbox in ProjectPanel.jsx; multi-image projects also have gallery thumbnails.
