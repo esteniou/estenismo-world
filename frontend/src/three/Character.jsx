@@ -184,8 +184,8 @@ function WalkingSmoke({ target, input }) {
       sprite.position.x += p.vx * dt;
       sprite.position.z += p.vz * dt;
       sprite.position.y += 0.25 * dt;
-      sprite.scale.setScalar(0.18 + (1 - p.life / 0.5) * 0.4);
-      sprite.material.opacity = 0.22 * p.life / 0.5;
+      sprite.scale.setScalar(0.28 + (1 - p.life / 0.5) * 0.4);
+      sprite.material.opacity = 0.55 * p.life / 0.5;
     });
 
     elapsed.current += dt;
@@ -197,8 +197,8 @@ function WalkingSmoke({ target, input }) {
     const x = dx / distance;
     const z = dz / distance;
     sprite.position.set(position.x - x * 0.4 + z * side, position.y + 0.08, position.z - z * 0.4 - x * side);
-    sprite.scale.setScalar(0.18);
-    sprite.material.opacity = 0.22;
+    sprite.scale.setScalar(0.28);
+    sprite.material.opacity = 0.55;
     sprite.visible = true;
     Object.assign(particles[index], { life: 0.5, vx: -x * 0.25, vz: -z * 0.25 });
   });
