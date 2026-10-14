@@ -58,3 +58,9 @@ Build a highly immersive, playful, premium interactive 3D portfolio for the crea
 - Remaining content: Illustration and Printing await user uploads.
 - Contact updated at user's confirmed request: email and mailto link now use `estenionline@gmail.com`; Instagram, Twitter and Behance removed by clearing the social links list. Email uses smaller responsive typography with `whitespace-nowrap` to remain on one line, as subsequently requested and confirmed. No tests run, as requested.
 - Future work only on request: mobile/media interaction verification and deeper 3D polish. Ambient sound remains opted out; do not add integrations or refactor ProjectPanel for simple content changes.
+
+## Mobile Illustration Label Fix
+- User reported white ILLUSTRATION missing immediately on mobile initial load; requested minimal changes. A subsequent instruction required focused verification after fixing.
+- Reproduced at 390×780: label rendered white but entirely offscreen (x=-315, right=-252). Fixed vertical FOV of 45 cropped side landmarks in portrait.
+- CameraRig.jsx now adjusts FOV for mobile aspect ratios only (<768px), preserving desktop FOV=45 and existing camera position/follow. Destination.jsx keeps mobile names readable at 11px without distance scaling and adds destination-label-* test IDs. World geometry, project content, and desktop label styling unchanged.
+- Focused verification passed via testing agent: `/app/test_reports/iteration_2.json`. ILLUSTRATION within viewport above easel at 390×780 (x=25.4,width=100) and 320×700 (x=11.9,width=100); desktop 1920×800 unchanged. No reported issues; no broad suite or backend tests run.

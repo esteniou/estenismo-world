@@ -1,0 +1,19 @@
+{
+  "summary": "Narrow visual verification of mobile ILLUSTRATION label fix. Confirmed label is now fully within mobile viewport on both 390x780 and 320x700, correct white color, placed above its easel landmark, and desktop 1920x800 projection/label styling unchanged.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Only the mobile ILLUSTRATION label visibility fix was validated. Measurements: mobile-390 box x=25.4,y=289.9,w=100,h=16.5 in_viewport=True color rgb(244,245,237); mobile-320 box x=11.9,y=266.4,w=100,h=16.5 in_viewport=True; desktop-1920 box x=437.4,y=19.1,w=63.7,h=8.5 (unchanged small-font behavior). Est wordmark/header unaffected. Screenshots saved to /tmp/illustration-mobile-390.jpg, /tmp/illustration-mobile-320.jpg, /tmp/illustration-desktop-1920.jpg.",
+  "rca of the issue": "Previous desktop-only vertical fov=45 clipped side destinations in portrait so ILLUSTRATION label projected off-screen (x negative) on mobile. Fix widens vertical fov proportionally to aspect only below 768px, keeping world geometry and desktop projection intact. Verified visually and via bounding box metrics."
+}
