@@ -1,0 +1,20 @@
+# Query: wild
+# ContextLines: 1
+
+5 results - 2 files
+
+frontend/yarn.lock:
+  11693      flat "^5.0.2"
+  11694:     wildcard "^2.0.0"
+  11695  
+
+  11861  
+  11862: wildcard@^2.0.0:
+  11863    version "2.0.1"
+  11864:   resolved "https://registry.yarnpkg.com/wildcard/-/wildcard-2.0.1.tgz#5ab10d02487198954836b6349f74fff961e10f67"
+  11865    integrity sha512-CC1bOL87PIWSBhDcTrdeLo6eGT7mCFtrg0uIJtqJUFyK+eJnzl8A1niH56uu7KMa5XFrtiV+AQuHO3n7DsHnLQ==
+
+frontend/src/data/portfolio.js:
+  178      title: "Contact",
+  179:     subtitle: "UX UI, Graphic Design, Paintings, Marketing and Social Media",
+  180      year: "Always Working",

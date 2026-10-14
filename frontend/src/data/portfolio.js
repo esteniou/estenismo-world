@@ -176,7 +176,7 @@ export const CONTENT = {
   },
   contact: {
     title: "Contact",
-    subtitle: "Let's make something wild together",
+    subtitle: "UX / UI, Graphic Design, Paintings, Marketing and Social Media",
     year: "Always open",
     email: "estenionline@gmail.com",
     location: "Global · Remote & Studio",
