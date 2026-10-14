@@ -75,3 +75,8 @@ Build a highly immersive, playful, premium interactive 3D portfolio for the crea
 - Supplemental production-browser verification passed: popup pinches leave world zoom unchanged, popup open/close preserves zoom, first proximity CTA mounts and opens Murals. See `zoom_supplemental.json`. The testing agent's earlier prolonged joystick push had overshot the destination; directed keyboard movement confirmed the CTA works.
 - Temporary production-check fixtures were removed after verification. Generated production output remains in `frontend/build/`; build succeeded with only an existing missing MediaPipe source-map warning.
 - Deployment status: changes are implemented and verified in preview/production build; external Netlify site has NOT been republished by this agent. User must publish the updated build there to see zoom and label fixes on the live domain.
+
+## Walking Smoke
+- User approved a light smoke trail behind the character's feet, visible only while walking, and explicitly requested no tests/minimum credits.
+- Added WalkingSmoke in `frontend/src/three/Character.jsx`: 12 reusable soft radial sprites, alternating behind the feet according to actual movement direction, low opacity, brief upward drift and fade. Smoke remains in world space rather than following the character; all puffs hide immediately when movement stops. No external assets or dependencies added.
+- No tests or screenshots run for this feature, as requested; runtime verification remains pending. Existing zoom, character controls and other scene elements unchanged. The generated production build mentioned above predates this smoke addition and must be rebuilt before publishing it.

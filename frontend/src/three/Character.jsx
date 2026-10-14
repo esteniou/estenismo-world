@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -67,6 +67,7 @@ export default function Character({ input, bodyRef, speed = 7.5 }) {
   });
 
   return (
+    <>
     <group ref={bodyRef} position={[0, 0, 6]}>
       {/* soft shadow disc */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
@@ -133,6 +134,82 @@ export default function Character({ input, bodyRef, speed = 7.5 }) {
           </mesh>
         </group>
       </group>
+    </group>
+    <WalkingSmoke target={bodyRef} input={input} />
+    </>
+  );
+}
+
+function WalkingSmoke({ target, input }) {
+  const group = useRef();
+  const previous = useRef(null);
+  const elapsed = useRef(0);
+  const emitted = useRef(0);
+  const particles = useMemo(() => Array.from({ length: 12 }, () => ({ life: 0, vx: 0, vz: 0 })), []);
+  const texture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 32;
+    const ctx = canvas.getContext("2d");
+    const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    gradient.addColorStop(0, "rgba(255,255,255,0.65)");
+    gradient.addColorStop(0.45, "rgba(255,255,255,0.25)");
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 32, 32);
+    return new THREE.CanvasTexture(canvas);
+  }, []);
+  useEffect(() => () => texture.dispose(), [texture]);
+
+  useFrame((_, dt) => {
+    if (!target.current || !group.current) return;
+    const position = target.current.position;
+    if (!previous.current) previous.current = position.clone();
+    const dx = position.x - previous.current.x;
+    const dz = position.z - previous.current.z;
+    const distance = Math.hypot(dx, dz);
+    previous.current.copy(position);
+    const walking = Math.hypot(input.current.x, input.current.y) > 0.05 && distance > 0.0001;
+    group.current.visible = walking;
+    if (!walking) {
+      elapsed.current = 0;
+      particles.forEach((p) => { p.life = 0; });
+      return;
+    }
+
+    particles.forEach((p, i) => {
+      const sprite = group.current.children[i];
+      p.life = Math.max(0, p.life - dt);
+      sprite.visible = p.life > 0;
+      if (!sprite.visible) return;
+      sprite.position.x += p.vx * dt;
+      sprite.position.z += p.vz * dt;
+      sprite.position.y += 0.25 * dt;
+      sprite.scale.setScalar(0.18 + (1 - p.life / 0.5) * 0.4);
+      sprite.material.opacity = 0.22 * p.life / 0.5;
+    });
+
+    elapsed.current += dt;
+    if (elapsed.current < 0.07) return;
+    elapsed.current = 0;
+    const index = emitted.current++ % particles.length;
+    const sprite = group.current.children[index];
+    const side = index % 2 === 0 ? 0.24 : -0.24;
+    const x = dx / distance;
+    const z = dz / distance;
+    sprite.position.set(position.x - x * 0.4 + z * side, position.y + 0.08, position.z - z * 0.4 - x * side);
+    sprite.scale.setScalar(0.18);
+    sprite.material.opacity = 0.22;
+    sprite.visible = true;
+    Object.assign(particles[index], { life: 0.5, vx: -x * 0.25, vz: -z * 0.25 });
+  });
+
+  return (
+    <group ref={group} name="walking-smoke" visible={false}>
+      {particles.map((_, i) => (
+        <sprite key={i} visible={false}>
+          <spriteMaterial map={texture} color="#D8E6DF" transparent opacity={0} depthWrite={false} toneMapped={false} />
+        </sprite>
+      ))}
     </group>
   );
 }
